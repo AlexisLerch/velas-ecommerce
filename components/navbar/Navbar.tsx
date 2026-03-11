@@ -1,0 +1,192 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaSearch, FaHeart, FaBars, FaTimes } from "react-icons/fa";
+import { RiShoppingBasketLine } from "react-icons/ri";
+
+const links = [
+  { name: "Nosotros", href: "/" },
+  { name: "Velas", href: "/products" },
+  { name: "Contacto", href: "/contact" },
+];
+
+const icons = [
+  { icon: FaSearch, href: "/search" },
+  { icon: FaHeart, href: "/favorites" },
+  { icon: RiShoppingBasketLine, href: "/cart" },
+];
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("Nosotros");
+
+  return (
+    <nav className="bg-navbar rounded-xl px-6 py-4 w-[99%] mx-auto mt-2 relative">
+      <div className="flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/">
+          <motion.span
+            whileHover={{ scale: 1.08 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            style={{ fontFamily: "var(--font-logo)" }}
+            className="text-white font-title font-bold text-4xl cursor-pointer select-none ml-2"
+          >
+            Velas
+          </motion.span>
+        </Link>
+        {/* Desktop links */}
+        <ul className="hidden md:flex gap-10 list-none text-accent relative font-medium tracking-wide">
+          {links.map((link) => (
+            <li key={link.name} className="relative">
+              <Link href={link.href}>
+                <motion.button
+                  onClick={() => setActive(link.name)}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative hover:text-accent2 transition-colors"
+                >
+                  {link.name}
+
+                  {active === link.name && (
+                    <motion.div
+                      layoutId="underline"
+                      className="absolute left-0 -bottom-1 h-0.5 w-full bg-accent2"
+                      transition={{
+                        type: "spring",
+                        stiffness: 500,
+                        damping: 35,
+                      }}
+                    />
+                  )}
+                </motion.button>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        {/* Desktop icons */}
+        <div className="hidden md:flex gap-6 text-accent text-lg">
+          {icons.map(({ icon: Icon, href }, i) => (
+            <Link key={i} href={href}>
+              <motion.div
+                whileHover={{ scale: 1.25, y: -2 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="cursor-pointer hover:text-accent2"
+              >
+                <Icon size={Icon === RiShoppingBasketLine ? 22 : 20} />
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+        {/* Mobile button */}
+        {/* Mobile right side */}
+        <div className="flex items-center gap-4 md:hidden">
+          {/* icons solo cuando el menu esta abierto */}
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                className="flex gap-4 text-accent"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                {icons.map(({ icon: Icon, href }, i) => (
+                  <Link key={i} href={href}>
+                    <motion.div
+                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.15 }}
+                      className="cursor-pointer hover:text-accent2 mr-2"
+                    >
+                      <Icon size={Icon === RiShoppingBasketLine ? 22 : 20} />
+                    </motion.div>
+                  </Link>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* boton menu */}
+          <motion.button
+            className="text-accent text-xl"
+            onClick={() => setOpen(!open)}
+            whileTap={{ scale: 0.8 }}
+          >
+            <AnimatePresence mode="wait">
+              {open ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <FaTimes />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <FaBars />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 110,
+              damping: 18,
+            }}
+            className="overflow-hidden md:hidden"
+          >
+            <div className="flex flex-col gap-4 mt-4 text-accent">
+              {/* linea animada */}
+              <motion.div
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{ scaleX: 1, opacity: 1 }}
+                exit={{ scaleX: 0, opacity: 0 }}
+                transition={{ duration: 0.85, ease: "easeOut" }}
+                className="h-px bg-accent2 origin-left"
+              />
+              {/* links */}
+              {links.map((link, i) => (
+                <Link key={link.name} href={link.href}>
+                  <motion.span
+                    initial={{ opacity: 0, x: 25 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 25 }}
+                    transition={{
+                      delay: i * 0.12,
+                      type: "spring",
+                      stiffness: 120,
+                    }}
+                    whileHover={{ x: -4 }}
+                    className="text-right hover:text-accent2 block"
+                  >
+                    {link.name}
+                  </motion.span>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+}
