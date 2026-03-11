@@ -2,8 +2,15 @@
 import ProductCard from "@/components/product/ProductCard";
 import { getProducts } from "@/lib/products";
 
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+}
+
 export default async function ProductsPage() {
-  const products = await getProducts();
+  const products: Product[] = await getProducts();
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
