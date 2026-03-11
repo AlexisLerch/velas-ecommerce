@@ -9,8 +9,12 @@ export interface Product {
 }
 
 export async function getProducts(): Promise<Product[]> {
-  const result = await prisma.$queryRaw<Product[]>`
-    SELECT id, name, price, image FROM "Product";
-  `;
-  return result;
+  return prisma.product.findMany({
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      image: true,
+    },
+  });
 }
