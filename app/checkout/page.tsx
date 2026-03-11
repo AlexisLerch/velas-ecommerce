@@ -1,11 +1,9 @@
 import React from "react";
 
-const page = () => {
+export default function CheckoutPage() {
   return (
     <div className="p-10">
       <h1 className="text-3xl font-bold">Checkout</h1>
     </div>
   );
-};
-
-export default page;
+}

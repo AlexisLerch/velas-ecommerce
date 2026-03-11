@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaSearch, FaHeart, FaBars, FaTimes } from "react-icons/fa";
 import { RiShoppingBasketLine } from "react-icons/ri";
+import { useState } from "react";
 
 const links = [
   { name: "Nosotros", href: "/" },
@@ -19,8 +20,8 @@ const icons = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname(); // <- hook de Next.js
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("Nosotros");
 
   return (
     <nav className="bg-navbar rounded-xl px-6 py-4 w-[99%] mx-auto mt-2 relative">
@@ -36,35 +37,38 @@ export default function Navbar() {
             Velas
           </motion.span>
         </Link>
+
         {/* Desktop links */}
         <ul className="hidden md:flex gap-10 list-none text-accent relative font-medium tracking-wide">
-          {links.map((link) => (
-            <li key={link.name} className="relative">
-              <Link href={link.href}>
-                <motion.button
-                  onClick={() => setActive(link.name)}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative hover:text-accent2 transition-colors"
-                >
-                  {link.name}
-
-                  {active === link.name && (
-                    <motion.div
-                      layoutId="underline"
-                      className="absolute left-0 -bottom-1 h-0.5 w-full bg-accent2"
-                      transition={{
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 35,
-                      }}
-                    />
-                  )}
-                </motion.button>
-              </Link>
-            </li>
-          ))}
+          {links.map((link) => {
+            const isActive = pathname === link.href; // <- comparación con el path actual
+            return (
+              <li key={link.name} className="relative">
+                <Link href={link.href}>
+                  <motion.button
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative hover:text-accent2 transition-colors"
+                  >
+                    {link.name}
+                    {isActive && (
+                      <motion.div
+                        layoutId="underline"
+                        className="absolute left-0 -bottom-1 h-0.5 w-full bg-accent2"
+                        transition={{
+                          type: "spring",
+                          stiffness: 500,
+                          damping: 35,
+                        }}
+                      />
+                    )}
+                  </motion.button>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
+
         {/* Desktop icons */}
         <div className="hidden md:flex gap-6 text-accent text-lg">
           {icons.map(({ icon: Icon, href }, i) => (
@@ -80,8 +84,8 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
+
         {/* Mobile button */}
-        {/* Mobile right side */}
         <div className="flex items-center gap-4 md:hidden">
           {/* icons solo cuando el menu esta abierto */}
           <AnimatePresence>
@@ -166,7 +170,11 @@ export default function Navbar() {
               />
               {/* links */}
               {links.map((link, i) => (
-                <Link key={link.name} href={link.href}>
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                >
                   <motion.span
                     initial={{ opacity: 0, x: 25 }}
                     animate={{ opacity: 1, x: 0 }}
