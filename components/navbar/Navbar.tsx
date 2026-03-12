@@ -24,7 +24,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="bg-navbar rounded-xl px-6 py-4 sm:w-[99%] w-[97%] mx-auto mt-2 relative">
+    <nav className="bg-navbar rounded-xl px-6 py-4  w-[99%] mx-auto sm:mt-2 mt-0.5  relative">
       <div className="flex items-center justify-between">
         {/* Logo */}
         <Link href="/">

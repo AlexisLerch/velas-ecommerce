@@ -27,7 +27,7 @@ const item: Variants = {
 
 export default function Home() {
   return (
-    <main className="p-2">
+    <main className="p-1 sm:p-2">
       <motion.section
         initial="hidden"
         animate="show"
@@ -88,7 +88,7 @@ export default function Home() {
           </div>
 
           {/* IMAGEN DERECHA */}
-          <div className="relative h-105 md:h-225 rounded-2xl overflow-hidden group sm:mt-0 -mt-2">
+          <div className="relative h-105 md:h-225 rounded-2xl overflow-hidden group sm:mt-0 -mt-3">
             <Image
               src="/berry.jpg"
               alt="Velas"
