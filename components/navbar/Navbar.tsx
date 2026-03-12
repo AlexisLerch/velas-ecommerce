@@ -138,7 +138,16 @@ export default function Navbar() {
 
               if (next) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
-                setTimeout(() => setOpen(true), 250);
+
+                const checkScroll = () => {
+                  if (window.scrollY === 0) {
+                    setOpen(true);
+                  } else {
+                    requestAnimationFrame(checkScroll);
+                  }
+                };
+
+                requestAnimationFrame(checkScroll);
               } else {
                 setOpen(false);
               }

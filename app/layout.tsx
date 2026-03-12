@@ -2,6 +2,7 @@ import Navbar from "@/components/navbar/Navbar";
 import "./globals.css";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import { Playfair_Display } from "next/font/google";
+import AnnouncementBar from "@/components/announcement/AnnouncementBar";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${inter.variable} ${cormorant.variable} ${playfair.className}`}
       >
         <Navbar />
+        <AnnouncementBar />
         {children}
       </body>
     </html>
