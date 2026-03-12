@@ -1,10 +1,17 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
     <main className="p-2">
-      <section className="max-w-8xl mx-auto">
-        {/* GRID PRINCIPAL */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="max-w-8xl mx-auto"
+      >
         <div className="grid md:grid-cols-2 gap-4 relative">
           {/* IMAGEN IZQUIERDA */}
           <div className="relative h-105 md:h-auto rounded-2xl overflow-hidden group">
@@ -15,80 +22,53 @@ export default function Home() {
               className="object-cover transition-transform duration-500 group-hover:scale-101"
             />
 
-            {/* Etiqueta */}
-            <div
-              className="
-  absolute 
-  top-[25%] left-[8%]
-  -translate-y-1/2
-
-  bg-[#fff8f0]
-  border border-[#e8d8c3]
-
-  px-3 py-1 md:px-10 md:py-4
-  text-xs md:text-md
-
-  max-w-30 md:max-w-none
-
-  rounded-sm font-semibold
-  italic text-accent2
-  shadow-md
-  hover:shadow-lg
-  transition
-  "
+            {/* ETIQUETA 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.7 }}
+              className="absolute top-[25%] left-[8%] -translate-y-1/2
+              bg-[#fff8f0] border border-[#e8d8c3]
+              px-3 py-1 md:px-10 md:py-4
+              text-xs md:text-md
+              max-w-30 md:max-w-none
+              rounded-sm font-semibold italic text-accent2
+              shadow-md hover:shadow-lg transition"
             >
               Colores únicos
-            </div>
+            </motion.div>
 
-            <div
-              className="
-  absolute 
-  top-[45%] right-[6%]
-  -translate-y-1/2
-
-  bg-[#fff8f0]
-  border border-[#e8d8c3]
-
-  px-3 py-1 md:px-10 md:py-4
-  text-xs md:text-md
-
-  max-w-30md:max-w-none
-  text-center
-
-  font-semibold
-  rounded-sm text-accent2
-  italic
-  shadow-md
-  hover:shadow-lg
-  transition
-  "
+            {/* ETIQUETA 2 */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.1, duration: 0.7 }}
+              className="absolute top-[45%] right-[6%] -translate-y-1/2
+              bg-[#fff8f0] border border-[#e8d8c3]
+              px-3 py-1 md:px-10 md:py-4
+              text-xs md:text-md
+              max-w-30 md:max-w-none text-center
+              font-semibold rounded-sm text-accent2 italic
+              shadow-md hover:shadow-lg transition"
             >
               Aromas especiales
-            </div>
+            </motion.div>
 
-            <div
-              className="
-  absolute 
-  bottom-[15%] left-[12%]
-
-  bg-[#fff8f0]
-  border border-[#e8d8c3]
-
-  px-3 py-1 md:px-10 md:py-4
-  text-xs md:text-md
-
-  max-w-35 md:max-w-none
-  text-center
-
-  rounded-sm font-semibold
-  italic text-accent2
-  shadow-md
-  hover:shadow-lg
-  transition
-  "
+            {/* ETIQUETA 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.7 }}
+              className="absolute bottom-[15%] left-[12%]
+              bg-[#fff8f0] border border-[#e8d8c3]
+              px-3 py-1 md:px-10 md:py-4
+              text-xs md:text-md
+              max-w-35 md:max-w-none text-center
+              rounded-sm font-semibold italic text-accent2
+              shadow-md hover:shadow-lg transition"
             >
               Personalizadas a tu gusto
-            </div>
+            </motion.div>
           </div>
 
           {/* IMAGEN DERECHA */}
@@ -100,21 +80,26 @@ export default function Home() {
               className="object-cover transition-transform duration-500 group-hover:scale-101"
             />
 
-            {/* TEXTO ABAJO */}
-            <div
-              className="
-              absolute 
-              bottom-4 left-4 right-4
-              md:bottom-10 md:left-10 md:right-auto
-              bg-[#fff8f0] backdrop-blur-sm
-              border border-[#e8d8c3]
-              p-5 md:p-8
-              rounded-xl
-              shadow-lg
-              md:max-w-[80%]
-              transition-all duration-300
-              hover:shadow-xl
-              "
+            {/* TEXTO */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                delay: 1.8,
+                duration: 1,
+                ease: "easeOut",
+              }}
+              className="absolute 
+  bottom-4 left-4 right-4
+  md:bottom-10 md:left-10 md:right-auto
+  bg-[#fff8f0] backdrop-blur-sm
+  border border-[#e8d8c3]
+  p-5 md:p-8
+  rounded-xl
+  shadow-lg
+  md:max-w-[80%]
+  transition-all duration-300
+  hover:shadow-xl"
             >
               <h2 className="text-xl md:text-3xl font-semibold text-accent2 leading-tight">
                 Velas hechas a mano
@@ -124,10 +109,10 @@ export default function Home() {
                 Descubrí nuestras velas artesanales con aromas únicos y
                 combinaciones de colores que transforman cualquier ambiente.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }
