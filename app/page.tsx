@@ -18,7 +18,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="relative h-105 md:h-auto rounded-2xl overflow-hidden group"
+            className="relative aspect-square rounded-2xl overflow-hidden group"
           >
             <Image
               src="/candless.jpg"
@@ -32,7 +32,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              className="absolute top-[25%] left-[8%] -translate-y-1/2
+              className="absolute top-[25%] left-[12%] -translate-y-1/2
               bg-[#fff8f0] border border-[#e8d8c3]
               px-3 py-1 md:px-10 md:py-4
               text-xs md:text-md
@@ -48,7 +48,7 @@ export default function Home() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1.1, duration: 0.6 }}
-              className="absolute top-[45%] right-[6%] -translate-y-1/2
+              className="absolute top-[45%] right-[10%] -translate-y-1/2
               bg-[#fff8f0] border border-[#e8d8c3]
               px-3 py-1 md:px-10 md:py-4
               text-xs md:text-md
@@ -64,7 +64,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.4, duration: 0.6 }}
-              className="absolute bottom-[15%] left-[12%]
+              className="absolute bottom-[15%] left-[22%]
               bg-[#fff8f0] border border-[#e8d8c3]
               px-3 py-1 md:px-10 md:py-4
               text-xs md:text-md
@@ -81,7 +81,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 1 }}
-            className="relative h-105 md:h-225 rounded-2xl overflow-hidden group sm:mt-0 -mt-3"
+            className="relative aspect-square rounded-2xl overflow-hidden group sm:mt-0 -mt-3"
           >
             <Image
               src="/berry.jpg"

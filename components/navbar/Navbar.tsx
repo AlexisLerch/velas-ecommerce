@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaSearch, FaHeart, FaBars, FaTimes } from "react-icons/fa";
 import { RiShoppingBasketLine } from "react-icons/ri";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const links = [
   { name: "Nosotros", href: "/" },
@@ -20,19 +20,38 @@ const icons = [
 ];
 
 export default function Navbar() {
-  const pathname = usePathname(); // <- hook de Next.js
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="bg-navbar rounded-xl sm:px-6 sm:py-4 px-3 py-2.5 w-[99%] mx-auto sm:mt-2 mt-0.5  relative">
+    <motion.nav
+      animate={{
+        paddingTop: scrolled ? "4px" : "6px",
+        paddingBottom: scrolled ? "4px" : "6px",
+        scale: scrolled ? 0.92 : 1,
+      }}
+      transition={{ duration: 0.25 }}
+      className="bg-navbar/90 backdrop-blur-md rounded-xl sm:px-6 px-3 w-[99%] mx-auto sm:mt-2 mt-0.5 sticky top-1 z-50"
+    >
       <div className="flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
           <motion.span
+            animate={{ fontSize: scrolled ? "28px" : "36px" }}
+            transition={{ duration: 0.25 }}
             whileHover={{ scale: 1.08 }}
-            transition={{ type: "spring", stiffness: 300 }}
             style={{ fontFamily: "var(--font-logo)" }}
-            className="text-white font-title font-bold text-4xl cursor-pointer select-none ml-2"
+            className="text-white font-title font-bold cursor-pointer select-none ml-2"
             onClick={() => setOpen(false)}
           >
             Velas
@@ -42,7 +61,7 @@ export default function Navbar() {
         {/* Desktop links */}
         <ul className="hidden md:flex gap-10 list-none text-accent relative font-medium tracking-wide">
           {links.map((link) => {
-            const isActive = pathname === link.href; // <- comparación con el path actual
+            const isActive = pathname === link.href;
             return (
               <li key={link.name} className="relative">
                 <Link href={link.href}>
@@ -88,7 +107,6 @@ export default function Navbar() {
 
         {/* Mobile button */}
         <div className="flex items-center gap-4 md:hidden">
-          {/* icons solo cuando el menu esta abierto */}
           <AnimatePresence>
             {open && (
               <motion.div
@@ -113,7 +131,6 @@ export default function Navbar() {
             )}
           </AnimatePresence>
 
-          {/* boton menu */}
           <motion.button
             className="text-accent text-xl"
             onClick={() => setOpen(!open)}
@@ -161,7 +178,6 @@ export default function Navbar() {
             className="overflow-hidden md:hidden"
           >
             <div className="flex flex-col gap-4 mt-4 text-accent">
-              {/* linea animada */}
               <motion.div
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={{ scaleX: 1, opacity: 1 }}
@@ -169,7 +185,7 @@ export default function Navbar() {
                 transition={{ duration: 0.85, ease: "easeOut" }}
                 className="h-px bg-accent2 origin-left"
               />
-              {/* links */}
+
               {links.map((link, i) => (
                 <Link
                   key={link.name}
@@ -196,6 +212,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 }
