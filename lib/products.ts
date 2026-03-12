@@ -2,7 +2,7 @@
 import { prisma } from "./prisma";
 
 export interface Product {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
