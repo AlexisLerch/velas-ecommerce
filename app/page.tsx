@@ -1,52 +1,37 @@
 "use client";
 
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
-
-const container: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.4,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: "easeOut",
-    },
-  },
-};
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <main className="p-1 sm:p-2">
+    <main className="p-2">
       <motion.section
-        initial="hidden"
-        animate="show"
-        variants={container}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
         className="max-w-8xl mx-auto"
       >
         <div className="grid md:grid-cols-2 gap-4 relative">
           {/* IMAGEN IZQUIERDA */}
-          <div className="relative h-105 md:h-auto rounded-2xl overflow-hidden group">
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="relative h-105 md:h-auto rounded-2xl overflow-hidden group"
+          >
             <Image
               src="/candless.jpg"
               alt="Velas"
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-101"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.01]"
             />
 
             {/* ETIQUETA 1 */}
             <motion.div
-              variants={item}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
               className="absolute top-[25%] left-[8%] -translate-y-1/2
               bg-[#fff8f0] border border-[#e8d8c3]
               px-3 py-1 md:px-10 md:py-4
@@ -60,7 +45,9 @@ export default function Home() {
 
             {/* ETIQUETA 2 */}
             <motion.div
-              variants={item}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.1, duration: 0.6 }}
               className="absolute top-[45%] right-[6%] -translate-y-1/2
               bg-[#fff8f0] border border-[#e8d8c3]
               px-3 py-1 md:px-10 md:py-4
@@ -74,7 +61,9 @@ export default function Home() {
 
             {/* ETIQUETA 3 */}
             <motion.div
-              variants={item}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.6 }}
               className="absolute bottom-[15%] left-[12%]
               bg-[#fff8f0] border border-[#e8d8c3]
               px-3 py-1 md:px-10 md:py-4
@@ -85,20 +74,27 @@ export default function Home() {
             >
               Personalizadas a tu gusto
             </motion.div>
-          </div>
+          </motion.div>
 
           {/* IMAGEN DERECHA */}
-          <div className="relative h-105 md:h-225 rounded-2xl overflow-hidden group sm:mt-0 -mt-3">
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 1 }}
+            className="relative h-105 md:h-225 rounded-2xl overflow-hidden group sm:mt-0 -mt-2"
+          >
             <Image
               src="/berry.jpg"
               alt="Velas"
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-101"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.01]"
             />
 
             {/* TEXTO */}
             <motion.div
-              variants={item}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.8, duration: 0.8 }}
               className="absolute 
               bottom-4 left-4 right-4
               md:bottom-10 md:left-10 md:right-auto
@@ -120,7 +116,7 @@ export default function Home() {
                 combinaciones de colores que transforman cualquier ambiente.
               </p>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
     </main>
