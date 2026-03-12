@@ -81,7 +81,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 1 }}
-            className="relative h-105 md:h-225 rounded-2xl overflow-hidden group sm:mt-0 -mt-2"
+            className="relative h-105 md:h-225 rounded-2xl overflow-hidden group sm:mt-0 -mt-3"
           >
             <Image
               src="/berry.jpg"
