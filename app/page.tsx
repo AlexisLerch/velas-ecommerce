@@ -1,15 +1,37 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
+
+const container: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.4,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+    },
+  },
+};
 
 export default function Home() {
   return (
     <main className="p-2">
       <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+        initial="hidden"
+        animate="show"
+        variants={container}
         className="max-w-8xl mx-auto"
       >
         <div className="grid md:grid-cols-2 gap-4 relative">
@@ -24,9 +46,7 @@ export default function Home() {
 
             {/* ETIQUETA 1 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.7 }}
+              variants={item}
               className="absolute top-[25%] left-[8%] -translate-y-1/2
               bg-[#fff8f0] border border-[#e8d8c3]
               px-3 py-1 md:px-10 md:py-4
@@ -40,9 +60,7 @@ export default function Home() {
 
             {/* ETIQUETA 2 */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.1, duration: 0.7 }}
+              variants={item}
               className="absolute top-[45%] right-[6%] -translate-y-1/2
               bg-[#fff8f0] border border-[#e8d8c3]
               px-3 py-1 md:px-10 md:py-4
@@ -56,9 +74,7 @@ export default function Home() {
 
             {/* ETIQUETA 3 */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.4, duration: 0.7 }}
+              variants={item}
               className="absolute bottom-[15%] left-[12%]
               bg-[#fff8f0] border border-[#e8d8c3]
               px-3 py-1 md:px-10 md:py-4
@@ -82,24 +98,18 @@ export default function Home() {
 
             {/* TEXTO */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                delay: 1.8,
-                duration: 1,
-                ease: "easeOut",
-              }}
+              variants={item}
               className="absolute 
-  bottom-4 left-4 right-4
-  md:bottom-10 md:left-10 md:right-auto
-  bg-[#fff8f0] backdrop-blur-sm
-  border border-[#e8d8c3]
-  p-5 md:p-8
-  rounded-xl
-  shadow-lg
-  md:max-w-[80%]
-  transition-all duration-300
-  hover:shadow-xl"
+              bottom-4 left-4 right-4
+              md:bottom-10 md:left-10 md:right-auto
+              bg-[#fff8f0] backdrop-blur-sm
+              border border-[#e8d8c3]
+              p-5 md:p-8
+              rounded-xl
+              shadow-lg
+              md:max-w-[80%]
+              transition-all duration-300
+              hover:shadow-xl"
             >
               <h2 className="text-xl md:text-3xl font-semibold text-accent2 leading-tight">
                 Velas hechas a mano
