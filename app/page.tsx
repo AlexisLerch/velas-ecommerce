@@ -92,7 +92,7 @@ export default function Home() {
           </div>
 
           {/* IMAGEN DERECHA */}
-          <div className="relative h-105 md:h-225 rounded-2xl overflow-hidden group">
+          <div className="relative h-105 md:h-225 rounded-2xl overflow-hidden group sm:mt-0 -mt-2">
             <Image
               src="/berry.jpg"
               alt="Velas"

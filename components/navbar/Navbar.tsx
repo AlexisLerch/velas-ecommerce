@@ -24,7 +24,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="bg-navbar rounded-xl px-6 py-4 w-[99%] mx-auto mt-2 relative">
+    <nav className="bg-navbar rounded-xl px-6 py-4 sm:w-[99%] w-[97%] mx-auto mt-2 relative">
       <div className="flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
@@ -33,6 +33,7 @@ export default function Navbar() {
             transition={{ type: "spring", stiffness: 300 }}
             style={{ fontFamily: "var(--font-logo)" }}
             className="text-white font-title font-bold text-4xl cursor-pointer select-none ml-2"
+            onClick={() => setOpen(false)}
           >
             Velas
           </motion.span>
