@@ -2,12 +2,12 @@ import { prisma } from "./prisma";
 import { CartItem } from "@/store/cartStore";
 
 export async function fetchUserCart(userId: string) {
-  return await prisma.CartItem.findMany({ where: { userId } });
+  return await prisma.cartItem.findMany({ where: { userId } });
 }
 
 export async function saveUserCart(userId: string, items: CartItem[]) {
-  await prisma.CartItem.deleteMany({ where: { userId } });
-  await prisma.CartItem.createMany({
+  await prisma.cartItem.deleteMany({ where: { userId } });
+  await prisma.cartItem.createMany({
     data: items.map((i) => ({
       userId,
       productId: i.id,
