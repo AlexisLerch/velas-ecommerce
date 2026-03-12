@@ -10,5 +10,7 @@ export const theme = {
     secondary2: "#FEF8D6",
     text2: "#A8A8A8",
     accent2: "#A3596A",
+    textMain: "#333333",
+    bgCard: "#FEF8D6",
   },
 };

@@ -5,7 +5,7 @@ import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-navbarBg text-textMain mt-20 border-t border-borderMain">
+    <footer className="bg-accent2 text-textMain mt-20 border-t border-borderMain ">
       <div className="max-w-7xl mx-auto px-6 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-10 text-center sm:text-left">
         {/* Logo / marca */}
         <div>
@@ -101,7 +101,7 @@ const Footer = () => {
       </div>
 
       {/* línea inferior */}
-      <div className="border-t border-borderMain py-4 text-center text-xs text-textMuted">
+      <div className="border-t border-borderMain py-4 text-center text-xs text-textMuted bg-accent">
         © {new Date().getFullYear()} Velas — Todos los derechos reservados
       </div>
     </footer>

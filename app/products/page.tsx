@@ -10,13 +10,13 @@ export default async function ProductsPage() {
       <h1 className="text-3xl font-bold mb-8 text-center text-text">
         Nuestras Velas
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-5">
+        {products.map((prod) => (
           <ProductCard
-            key={product.id}
-            name={product.name}
-            price={product.price}
-            image={product.image}
+            key={prod.id}
+            name={prod.name}
+            price={prod.price}
+            image={prod.image}
           />
         ))}
       </div>

@@ -16,6 +16,8 @@
   --color-secondary2: #fef8d6;
   --color-text2: #a8a8a8;
   --color-accent2: #a3596a;
+  --color-textMain: #333333;
+  --color-bgCard: #fef8d6;
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
