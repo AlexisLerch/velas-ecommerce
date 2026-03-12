@@ -14,7 +14,7 @@ export default function ProductCard({ name, price, image }: Props) {
     <motion.div
       whileHover={{ y: -8 }}
       transition={{ type: "spring", stiffness: 200 }}
-      className="group relative rounded-2xl bg-secondary2 shadow-md overflow-hidden"
+      className="group relative rounded-2xl bg-primary shadow-md overflow-hidden"
     >
       {/* imagen */}
       <div className="overflow-hidden">
