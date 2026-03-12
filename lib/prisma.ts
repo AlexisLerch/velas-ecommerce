@@ -1,15 +1,17 @@
 // lib/prisma.ts
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import { PrismaClient } from "@prisma/client";
 
 declare global {
-  // Evita múltiples instancias en dev
   var prisma: PrismaClient | undefined;
 }
 
 export const prisma =
   global.prisma ??
   new PrismaClient({
-    log: ["query", "info", "warn", "error"], // opcional para debug
+    log: ["query", "info", "warn", "error"],
   });
 
 if (process.env.NODE_ENV !== "production") global.prisma = prisma;
