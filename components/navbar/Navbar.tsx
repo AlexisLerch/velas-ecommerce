@@ -36,12 +36,12 @@ export default function Navbar() {
   return (
     <motion.nav
       animate={{
-        paddingTop: scrolled ? "4px" : "6px",
-        paddingBottom: scrolled ? "4px" : "6px",
-        scale: scrolled ? 0.92 : 1,
+        paddingTop: scrolled ? "4px" : "8px",
+        paddingBottom: scrolled ? "4px" : "8px",
+        width: scrolled ? "94%" : "99%",
       }}
       transition={{ duration: 0.25 }}
-      className="bg-navbar/90 backdrop-blur-md rounded-xl sm:px-6 px-3 w-[99%] mx-auto sm:mt-2 mt-0.5 sticky top-1 z-50"
+      className="bg-navbar/90 backdrop-blur-md rounded-xl sm:px-6 px-3 mx-auto sm:mt-2 mt-0.5 sticky top-1 z-50"
     >
       <div className="flex items-center justify-between">
         {/* Logo */}
@@ -133,7 +133,16 @@ export default function Navbar() {
 
           <motion.button
             className="text-accent text-xl"
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              const next = !open;
+
+              if (next) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                setTimeout(() => setOpen(true), 250);
+              } else {
+                setOpen(false);
+              }
+            }}
             whileTap={{ scale: 0.8 }}
           >
             <AnimatePresence mode="wait">
