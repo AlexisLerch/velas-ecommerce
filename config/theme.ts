@@ -7,7 +7,7 @@ export const theme = {
     text: "#333333",
     navbar: "#930825",
     background2: "#C99A92",
-    secondary2: "#FEF8D6",
+    secondary2: "#7e8c69",
     text2: "#A8A8A8",
     accent2: "#A3596A",
     textMain: "#333333",

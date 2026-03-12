@@ -51,7 +51,7 @@ export default function Navbar() {
             transition={{ duration: 0.25 }}
             whileHover={{ scale: 1.08 }}
             style={{ fontFamily: "var(--font-logo)" }}
-            className="text-text2/90 font-title font-bold cursor-pointer select-none ml-2"
+            className="text-secondary2/70 font-title font-bold cursor-pointer select-none ml-2"
             onClick={() => setOpen(false)}
           >
             Velas

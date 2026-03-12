@@ -36,7 +36,7 @@ export default function ProductsGrid({ products }: Props) {
       <div
         className={`${
           showFilters ? "block" : "hidden"
-        } md:block w-full md:w-64 bg-white p-6 rounded-2xl shadow-lg flex-shrink-0 transition-all duration-300`}
+        } md:block w-full md:w-64 bg-primary p-6 rounded-2xl shadow-lg shrink-0 transition-all duration-300`}
       >
         <h2 className="text-lg font-semibold mb-4 text-gray-800">Filtros</h2>
 
@@ -73,7 +73,14 @@ export default function ProductsGrid({ products }: Props) {
       {/* Grid de productos */}
       <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filtered.map((p) => (
-          <ProductCard key={p.id} {...p} />
+          <ProductCard
+            key={p.id} // sigue igual
+            id={p.id} // ⚠️ obligatorio
+            name={p.name}
+            price={p.price}
+            description={p.description ?? ""}
+            image={p.image}
+          />
         ))}
       </div>
     </div>

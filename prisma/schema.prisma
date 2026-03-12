@@ -17,3 +17,12 @@ model Product {
   stock       Int
   createdAt   DateTime @default(now())
 }
+
+model CartItem {
+  id        String  @id @default(cuid())
+  userId    String
+  productId String
+  name      String
+  price     Float
+  quantity  Int
+}
