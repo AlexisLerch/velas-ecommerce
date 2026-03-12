@@ -1,6 +1,12 @@
 import Navbar from "@/components/navbar/Navbar";
 import "./globals.css";
 import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Playfair_Display } from "next/font/google";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,7 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={`${inter.variable} ${cormorant.variable}`}>
+      <body
+        className={`${inter.variable} ${cormorant.variable} ${playfair.className}`}
+      >
         <Navbar />
         {children}
       </body>
