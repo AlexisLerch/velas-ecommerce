@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import { Playfair_Display } from "next/font/google";
 import AnnouncementBar from "@/components/announcement/AnnouncementBar";
+import Footer from "@/components/footer/Footer";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
         <Navbar />
         <AnnouncementBar />
         {children}
+        <Footer />
       </body>
     </html>
   );
