@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/store/cartStore";
 import { RiShoppingBasketLine } from "react-icons/ri";
+import { GiCandleFlame } from "react-icons/gi";
 
 export default function CartPopup() {
   const showPopup = useCartStore((state) => state.showPopup);
@@ -11,7 +12,7 @@ export default function CartPopup() {
 
   useEffect(() => {
     if (showPopup) {
-      const timer = setTimeout(() => setShowPopup(false), 2200); // dura 2.2s
+      const timer = setTimeout(() => setShowPopup(false), 1000); // dura 2.2s
       return () => clearTimeout(timer);
     }
   }, [showPopup, setShowPopup]);
@@ -23,16 +24,16 @@ export default function CartPopup() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/80 shadow-sm backdrop-blur-sm flex items-center justify-center z-50"
         >
           <motion.div
             initial={{ scale: 0, rotate: -15, opacity: 0 }}
             animate={{ scale: 1, rotate: 0, opacity: 1 }}
             exit={{ scale: 0.5, rotate: 15, opacity: 0 }}
             transition={{ type: "spring", stiffness: 500, damping: 25 }}
-            className="bg-linear-to-tr from-secondary2 to-accent2 p-8 rounded-3xl shadow-2xl flex flex-col items-center gap-6 w-70 relative"
+            className="bg-linear-to-tr  p-8 rounded-3xl  flex flex-col items-center gap-6 w-70 relative"
           >
-            {/* Carrito animado */}
+            {/* Carrito animado + velita + cantidad */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: [0, 1.3, 1] }}
@@ -42,9 +43,15 @@ export default function CartPopup() {
                 stiffness: 600,
                 damping: 20,
               }}
-              className="w-40 h-40 rounded-2xl flex items-center justify-center text-white relative"
+              className="w-40 h-40 rounded-2xl flex flex-col items-center justify-center text-white relative gap-2"
             >
               <RiShoppingBasketLine size={120} />
+
+              {/* Cantidad + velita */}
+              <div className="flex items-center gap-2 absolute top-8 left-0">
+                <span className="font-bold text-xl">1</span>
+                <GiCandleFlame size={28} className="text-white" />
+              </div>
 
               {/* Tilde animado */}
               <motion.div
@@ -80,8 +87,8 @@ export default function CartPopup() {
             <motion.p
               initial={{ y: 15, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="text-center font-bold text-gray-900 text-2xl"
+              transition={{ delay: 0.4 }}
+              className="text-center font-bold text-white text-2xl -mt-8"
             >
               ¡Agregado al carrito!
             </motion.p>

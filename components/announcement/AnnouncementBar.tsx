@@ -7,7 +7,7 @@ export default function AnnouncementBar() {
     "Envíos gratis en compras mayores a $30.000 — 3 cuotas sin interés — 10% OFF pagando con transferencia";
 
   return (
-    <div className="w-full overflow-hidden bg-accent text-white py-2">
+    <div className="w-full overflow-hidden text-navbar py-2">
       <motion.div
         className="flex whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}

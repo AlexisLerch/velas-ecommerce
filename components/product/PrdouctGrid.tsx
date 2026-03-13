@@ -4,6 +4,7 @@ import { useState } from "react";
 import ProductCard from "../product/ProductCard";
 import { Product } from "@/lib/products";
 import { HiOutlineFilter } from "react-icons/hi";
+import { motion } from "framer-motion";
 
 interface Props {
   products: Product[];
@@ -22,6 +23,16 @@ export default function ProductsGrid({ products }: Props) {
       p.price <= maxPrice,
   );
 
+  // Variants para stagger
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1, // cada tarjeta entra 0.1s después
+      },
+    },
+  };
+
   return (
     <div className="flex flex-col md:flex-row gap-6">
       {/* Botón filtros mobile */}
@@ -36,7 +47,7 @@ export default function ProductsGrid({ products }: Props) {
       <div
         className={`${
           showFilters ? "block" : "hidden"
-        } md:block w-full md:w-64 bg-primary p-6 rounded-2xl shadow-lg shrink-0 transition-all duration-300`}
+        } md:block w-full md:w-64 bg-accent2 p-6 rounded-2xl shadow-lg shrink-0 transition-all duration-300`}
       >
         <h2 className="text-lg font-semibold mb-4 text-gray-800">Filtros</h2>
 
@@ -70,19 +81,24 @@ export default function ProductsGrid({ products }: Props) {
         </div>
       </div>
 
-      {/* Grid de productos */}
-      <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {/* Grid de productos con stagger */}
+      <motion.div
+        className="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {filtered.map((p) => (
           <ProductCard
             key={p.id} // sigue igual
-            id={p.id} // ⚠️ obligatorio
+            id={p.id} // obligatorio para detalles
             name={p.name}
             price={p.price}
             description={p.description ?? ""}
             image={p.image}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
