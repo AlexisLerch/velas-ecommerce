@@ -11,6 +11,7 @@ const links = [
   { name: "Nosotros", href: "/" },
   { name: "Velas", href: "/products" },
   { name: "Contacto", href: "/contact" },
+  { name: "Nuestras Velas", href: "/nuestrasvelas" },
 ];
 
 const icons = [
