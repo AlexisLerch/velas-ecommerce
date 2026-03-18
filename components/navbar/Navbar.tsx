@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaSearch, FaHeart, FaBars, FaTimes } from "react-icons/fa";
 import { RiShoppingBasketLine } from "react-icons/ri";
 import { useState, useEffect } from "react";
+import { useCartStore } from "@/store/cartStore";
 
 const links = [
   { name: "Nosotros", href: "/" },
@@ -24,6 +25,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const totalItems = useCartStore((state) =>
+    state.items.reduce((acc, item) => acc + item.quantity, 0),
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,18 +96,35 @@ export default function Navbar() {
 
         {/* Desktop icons */}
         <div className="hidden md:flex gap-6 text-accent text-lg">
-          {icons.map(({ icon: Icon, href }, i) => (
-            <Link key={i} href={href}>
-              <motion.div
-                whileHover={{ scale: 1.25, y: -2 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="cursor-pointer hover:text-accent2"
-              >
-                <Icon size={Icon === RiShoppingBasketLine ? 22 : 20} />
-              </motion.div>
-            </Link>
-          ))}
+          {icons.map(({ icon: Icon, href }, i) => {
+            const isCart = Icon === RiShoppingBasketLine;
+
+            return (
+              <Link key={i} href={href}>
+                <motion.div
+                  whileHover={{ scale: 1.25, y: -2 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="relative cursor-pointer hover:text-accent2"
+                >
+                  <Icon size={isCart ? 22 : 20} />
+
+                  {/* 🔥 Badge */}
+                  {isCart && totalItems > 0 && (
+                    <motion.span
+                      key={totalItems}
+                      initial={{ scale: 0 }}
+                      animate={{ scale: [1.2, 0.9, 1] }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute -top-2 -right-2 bg-accent2 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full"
+                    >
+                      {totalItems}
+                    </motion.span>
+                  )}
+                </motion.div>
+              </Link>
+            );
+          })}
         </div>
 
         {/* Mobile button */}
@@ -117,18 +138,34 @@ export default function Navbar() {
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.2 }}
               >
-                {icons.map(({ icon: Icon, href }, i) => (
-                  <Link key={i} href={href}>
-                    <motion.div
-                      whileTap={{ scale: 0.9 }}
-                      whileHover={{ scale: 1.15 }}
-                      className="cursor-pointer hover:text-accent2 mr-2"
-                      onClick={() => setOpen(false)}
-                    >
-                      <Icon size={Icon === RiShoppingBasketLine ? 22 : 20} />
-                    </motion.div>
-                  </Link>
-                ))}
+                {icons.map(({ icon: Icon, href }, i) => {
+                  const isCart = Icon === RiShoppingBasketLine;
+
+                  return (
+                    <Link key={i} href={href}>
+                      <motion.div
+                        whileTap={{ scale: 0.9 }}
+                        whileHover={{ scale: 1.15 }}
+                        className="relative cursor-pointer hover:text-accent2 mr-2"
+                        onClick={() => setOpen(false)}
+                      >
+                        <Icon size={isCart ? 22 : 20} />
+
+                        {/* 🔥 Badge MOBILE */}
+                        {isCart && totalItems > 0 && (
+                          <motion.span
+                            key={totalItems}
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="absolute -top-2 -right-2 bg-accent2 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full"
+                          >
+                            {totalItems}
+                          </motion.span>
+                        )}
+                      </motion.div>
+                    </Link>
+                  );
+                })}
               </motion.div>
             )}
           </AnimatePresence>
