@@ -2,11 +2,19 @@ import { prisma } from "./prisma";
 import { CartItem } from "@/store/cartStore";
 
 export async function fetchUserCart(userId: string) {
-  return await prisma.cartItem.findMany({ where: { userId } });
+  return await prisma.cartItem.findMany({
+    where: { userId },
+  });
 }
 
 export async function saveUserCart(userId: string, items: CartItem[]) {
-  await prisma.cartItem.deleteMany({ where: { userId } });
+  // 🔥 SIEMPRE borrar antes
+  await prisma.cartItem.deleteMany({
+    where: { userId },
+  });
+
+  if (!items.length) return;
+
   await prisma.cartItem.createMany({
     data: items.map((i) => ({
       userId,

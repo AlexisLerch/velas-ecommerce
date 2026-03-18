@@ -10,8 +10,8 @@ import { useState, useEffect } from "react";
 const links = [
   { name: "Nosotros", href: "/" },
   { name: "Velas", href: "/products" },
-  { name: "Contacto", href: "/contact" },
   { name: "Nuestras Velas", href: "/nuestrasvelas" },
+  { name: "Contacto", href: "/contact" },
 ];
 
 const icons = [
@@ -123,6 +123,7 @@ export default function Navbar() {
                       whileTap={{ scale: 0.9 }}
                       whileHover={{ scale: 1.15 }}
                       className="cursor-pointer hover:text-accent2 mr-2"
+                      onClick={() => setOpen(false)}
                     >
                       <Icon size={Icon === RiShoppingBasketLine ? 22 : 20} />
                     </motion.div>

@@ -1,34 +1,69 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useCartStore, CartItem } from "@/store/cartStore";
+
+type CartItemFromDB = {
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+};
 
 export default function CartPage() {
   const cart = useCartStore((state) => state.items);
-  const addItem = useCartStore((state) => state.addItem);
+  const setItems = useCartStore((state) => state.setItems);
 
-  const userId = "usuario-demo"; // Por ahora, sin login
+  const userId = "usuario-demo";
 
-  // Cargar carrito desde API
+  const hasLoaded = useRef(false);
+
+  // 🔹 Cargar carrito
   useEffect(() => {
+    if (!userId) return;
+
     fetch(`/api/cart?userId=${userId}`)
       .then((res) => res.json())
-      .then((items: CartItem[]) => items.forEach((i) => addItem(i)));
-  }, [addItem]);
+      .then((items: CartItemFromDB[]) => {
+        console.log("DB:", items);
 
-  // Guardar carrito cuando cambie
+        if (!items || items.length === 0) {
+          hasLoaded.current = true;
+          return;
+        }
+
+        const mapped: CartItem[] = items.map((i) => ({
+          id: i.productId,
+          name: i.name,
+          price: i.price,
+          quantity: i.quantity,
+          image: "",
+        }));
+
+        setItems(mapped);
+        hasLoaded.current = true;
+      })
+      .catch(console.error);
+  }, [userId, setItems]);
+
+  // 🔹 Guardar carrito
   useEffect(() => {
+    if (!hasLoaded.current) return;
+
     fetch(`/api/cart`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ userId, items: cart }),
-    });
-  }, [cart]);
+    }).catch(console.error);
+  }, [cart, userId]);
 
   const total = cart.reduce((acc, i) => acc + i.price * i.quantity, 0);
 
   return (
     <div className="p-10">
       <h1 className="text-3xl font-bold mb-6">Tu Carrito</h1>
+
       {cart.length === 0 ? (
         <p>Tu carrito está vacío</p>
       ) : (
@@ -44,6 +79,7 @@ export default function CartPage() {
               <span>${(item.price * item.quantity).toFixed(2)}</span>
             </div>
           ))}
+
           <div className="flex justify-between font-bold text-lg mt-4">
             <span>Total:</span>
             <span>${total.toFixed(2)}</span>

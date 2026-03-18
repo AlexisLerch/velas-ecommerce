@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function NuestrasVelas() {
   return (
-    <main className="bg-[#f4f1ed] min-h-screen py-20 px-6">
+    <main className=" min-h-screen py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
