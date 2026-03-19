@@ -88,7 +88,7 @@ export default function CartPage() {
 
                 <div>
                   <p className="font-medium">{item.name}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-textMain">
                     Cantidad: {item.quantity}
                   </p>
                 </div>
@@ -102,7 +102,7 @@ export default function CartPage() {
 
                 <button
                   onClick={() => removeItem(item.id)}
-                  className="text-red-500 hover:scale-110 transition"
+                  className="text-navbar hover:scale-110 transition"
                 >
                   <FaTrash />
                 </button>

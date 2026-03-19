@@ -45,7 +45,7 @@ const Footer = () => {
       </div>
 
       {/* línea inferior */}
-      <div className="border-t border-borderMain py-4 text-center text-xs text-textMuted bg-secondary2">
+      <div className="border-t border-borderMain py-4 text-center text-xs text-textMuted bg-secondary">
         © {new Date().getFullYear()} Velas — Todos los derechos reservados
       </div>
     </footer>

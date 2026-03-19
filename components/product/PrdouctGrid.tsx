@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ProductCard from "../product/ProductCard";
+import ProductCard from "./ProductCard";
 import { Product } from "@/lib/products";
 import { HiOutlineFilter } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,7 +18,6 @@ export default function ProductsGrid({ products }: Props) {
   const [showFilters, setShowFilters] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detectar mobile (fix SSR)
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
@@ -26,48 +25,24 @@ export default function ProductsGrid({ products }: Props) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Filtrado
   const filtered = products.filter(
     (p) =>
       p.name.toLowerCase().includes(search.toLowerCase()) &&
       p.price <= maxPrice,
   );
 
-  // Animación grid (stagger)
   const containerVariants = {
     hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
+    visible: { transition: { staggerChildren: 0.15 } },
   };
-
-  // Animación filtros
   const filterVariants = {
-    hidden: {
-      opacity: 0,
-      x: -30,
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.3,
-      },
-    },
-    exit: {
-      opacity: 0,
-      x: -30,
-      transition: {
-        duration: 0.2,
-      },
-    },
+    hidden: { opacity: 0, x: -30 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: -30, transition: { duration: 0.2 } },
   };
 
   return (
     <div className="max-w-6xl mx-auto">
-      {/* Título */}
       <motion.h1
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -77,9 +52,7 @@ export default function ProductsGrid({ products }: Props) {
         Nuestras Velas
       </motion.h1>
 
-      {/* Contenido principal */}
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Botón filtros mobile */}
         <button
           className="md:hidden flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-lg self-start"
           onClick={() => setShowFilters(!showFilters)}
@@ -87,7 +60,6 @@ export default function ProductsGrid({ products }: Props) {
           <HiOutlineFilter className="w-5 h-5" /> Filtros
         </button>
 
-        {/* Filtros */}
         <AnimatePresence>
           {(showFilters || !isMobile) && (
             <motion.div
@@ -101,7 +73,6 @@ export default function ProductsGrid({ products }: Props) {
                 Filtros
               </h2>
 
-              {/* Buscar */}
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-1 text-gray-700">
                   Buscar
@@ -115,7 +86,6 @@ export default function ProductsGrid({ products }: Props) {
                 />
               </div>
 
-              {/* Precio */}
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-1 text-gray-700">
                   Precio máximo: ${maxPrice}
@@ -133,7 +103,6 @@ export default function ProductsGrid({ products }: Props) {
           )}
         </AnimatePresence>
 
-        {/* Grid productos */}
         <motion.div
           className="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
           variants={containerVariants}

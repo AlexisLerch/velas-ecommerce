@@ -6,7 +6,7 @@ export default async function ProductsPage() {
   const products = await getProducts();
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12 bg-secondary2">
+    <div className="max-w-7xl mx-auto px-6 py-12 bg-secondary">
       <ProductsGrid products={products} />
     </div>
   );
