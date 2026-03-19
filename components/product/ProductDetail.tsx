@@ -11,7 +11,7 @@ export default function ProductDetail({ product }: { product: Product }) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <main className="min-h-screen px-6 py-20 ">
+    <main className="min-h-screen px-6 py-20">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center relative">
         {/* Imagen con efecto premium */}
         <motion.div
@@ -30,12 +30,9 @@ export default function ProductDetail({ product }: { product: Product }) {
             transition={{ duration: 0.5 }}
           />
 
-          {/* Imagen con zoom y rotación */}
+          {/* Imagen con zoom */}
           <motion.div
-            animate={{
-              scale: hovered ? 1.15 : 1,
-              rotate: hovered ? 0 : 0,
-            }}
+            animate={{ scale: hovered ? 1.15 : 1 }}
             transition={{ duration: 0.5 }}
           >
             <Image
@@ -47,16 +44,13 @@ export default function ProductDetail({ product }: { product: Product }) {
             />
           </motion.div>
 
-          {/* Líneas animadas en mobile */}
+          {/* Línea animada en mobile */}
           <motion.div
-            className="md:hidden absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <div className="w-16 h-1 bg-linear-to-r from-[#b7a9b1] to-[#5a3b4c] animate-scaleX" />
-            <div className="w-16 h-1 bg-linear-to-r from-[#b7a9b1] to-[#5a3b4c] animate-scaleX delay-200" />
-          </motion.div>
+            className="md:hidden absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-linear-to-r from-[#b7a9b1] to-[#5a3b4c] rounded-full animate-scaleX"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          />
         </motion.div>
 
         {/* Info con líneas en L y animaciones */}
@@ -84,7 +78,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 
           {/* Nombre */}
           <motion.h1
-            className="text-3xl md:text-6xl font-semibold tracking-wide text-[#5a3b4c] mb-6 px-4"
+            className="text-4xl md:text-6xl  font-semibold tracking-wide text-[#5a3b4c] mb-6 px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -94,7 +88,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 
           {/* Descripción */}
           <motion.p
-            className="text-gray-600 leading-relaxed mb-8 max-w-md px-6"
+            className="text-gray-600 leading-relaxed mb-8 max-w-md px-6 text-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -104,7 +98,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 
           {/* Precio */}
           <motion.p
-            className="text-2xl md:text-3xl font-bold text-[#5a3b4c] mb-8 drop-shadow-md px-6"
+            className="text-3xl md:text-3xl font-bold text-[#5a3b4c] mb-8 drop-shadow-md px-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
