@@ -31,7 +31,7 @@ export default function ProductDetail({ product }: { product: Product }) {
   };
 
   return (
-    <main className="min-h-screen px-6 py-20 bg-linear-to-br from-[#fff1f5] to-transparent">
+    <main className="min-h-screen px-6 py-20 bg-linear-to-br from-secondary to-transparent">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center relative">
         {/* Imagen con efecto premium */}
         <motion.div
@@ -131,7 +131,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           </motion.p>
           {/* Selector de cantidad */}
           <motion.div
-            className="flex items-center gap-4 mb-6"
+            className="flex items-center gap-4 mb-6 px-5"
             initial={{ opacity: 0, x: 100 }}
             animate={{
               opacity: 1,
@@ -141,14 +141,14 @@ export default function ProductDetail({ product }: { product: Product }) {
           >
             <button
               onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
-              className="px-3 py-1 bg-gray-300 rounded-lg"
+              className="px-3 py-1 bg-accent2 text-textMain font-bold rounded-lg"
             >
               -
             </button>
             <span className="text-xl font-semibold">{quantity}</span>
             <button
               onClick={() => setQuantity((prev) => prev + 1)}
-              className="px-3 py-1 bg-gray-300 rounded-lg"
+              className="px-3 py-1 bg-accent2 text-textMain font-bold rounded-lg"
             >
               +
             </button>
