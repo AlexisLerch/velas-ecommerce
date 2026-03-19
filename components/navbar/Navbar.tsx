@@ -59,7 +59,7 @@ export default function Navbar() {
             className="text-secondary2/70 font-title font-bold cursor-pointer select-none ml-2"
             onClick={() => setOpen(false)}
           >
-            Velas
+            La Comarca de Cera
           </motion.span>
         </Link>
 
