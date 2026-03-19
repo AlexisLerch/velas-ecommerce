@@ -7,6 +7,7 @@ import { FaSearch, FaHeart, FaBars, FaTimes } from "react-icons/fa";
 import { RiShoppingBasketLine } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import { useCartStore } from "@/store/cartStore";
+import Image from "next/image";
 
 const links = [
   { name: "Nosotros", href: "/" },
@@ -30,10 +31,7 @@ export default function Navbar() {
   );
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -51,35 +49,53 @@ export default function Navbar() {
       <div className="flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
-          <motion.span
-            animate={{ fontSize: scrolled ? "28px" : "36px" }}
+          <motion.div
+            className="flex items-center gap-2 cursor-pointer select-none ml-2"
+            animate={{ scale: scrolled ? 0.95 : 1 }}
             transition={{ duration: 0.25 }}
-            whileHover={{ scale: 1.08 }}
-            style={{ fontFamily: "var(--font-logo)" }}
-            className="text-secondary2/70 font-title font-bold cursor-pointer select-none ml-2"
             onClick={() => setOpen(false)}
           >
-            La Comarca de Cera
-          </motion.span>
+            <div className="w-23 h-23 shrink-0 ml-10">
+              <Image
+                src="/logo.png"
+                alt="Frodito Logo"
+                width={100}
+                height={100}
+                className="object-contain "
+              />
+            </div>
+          </motion.div>
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex gap-10 list-none text-accent relative font-medium tracking-wide">
+        <ul className="hidden md:flex gap-10 list-none text-accent relative font-normal tracking-wide">
           {links.map((link) => {
             const isActive = pathname === link.href;
             return (
-              <li key={link.name} className="relative">
+              <li key={link.name} className="relative flex items-center gap-1">
                 <Link href={link.href}>
                   <motion.button
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="relative hover:text-accent2 transition-colors"
+                    className="relative flex items-center gap-1 text-lg md:text-xl font-semibold hover:text-secondary2 transition-colors"
                   >
+                    {/* Imagen Frodito al lado si está activo */}
+                    {isActive && (
+                      <Image
+                        src="/frodito3.png"
+                        alt="Frodito Icon"
+                        width={20}
+                        height={20}
+                        className="object-contain shrink-0"
+                      />
+                    )}
                     {link.name}
+
+                    {/* Subrayado */}
                     {isActive && (
                       <motion.div
                         layoutId="underline"
-                        className="absolute left-0 -bottom-1 h-0.5 w-full bg-accent2"
+                        className="absolute left-0 -bottom-1 h-0.5 w-full bg-secondary2"
                         transition={{
                           type: "spring",
                           stiffness: 500,
@@ -105,9 +121,9 @@ export default function Navbar() {
                   whileHover={{ scale: 1.25, y: -2 }}
                   whileTap={{ scale: 0.9 }}
                   transition={{ type: "spring", stiffness: 300 }}
-                  className="relative cursor-pointer hover:text-accent2"
+                  className="relative cursor-pointer hover:text-secondary2"
                 >
-                  <Icon size={isCart ? 22 : 20} />
+                  <Icon size={isCart ? 26 : 24} />
 
                   {/* 🔥 Badge */}
                   {isCart && totalItems > 0 && (
@@ -149,7 +165,7 @@ export default function Navbar() {
                         className="relative cursor-pointer hover:text-accent2 mr-2"
                         onClick={() => setOpen(false)}
                       >
-                        <Icon size={isCart ? 22 : 20} />
+                        <Icon size={isCart ? 26 : 24} />
 
                         {/* 🔥 Badge MOBILE */}
                         {isCart && totalItems > 0 && (
@@ -171,7 +187,7 @@ export default function Navbar() {
           </AnimatePresence>
 
           <motion.button
-            className="text-accent text-xl"
+            className="text-accent text-xl mr-2"
             onClick={() => {
               const next = !open;
 
@@ -179,17 +195,12 @@ export default function Navbar() {
                 window.scrollTo({ top: 0, behavior: "smooth" });
 
                 const checkScroll = () => {
-                  if (window.scrollY === 0) {
-                    setOpen(true);
-                  } else {
-                    requestAnimationFrame(checkScroll);
-                  }
+                  if (window.scrollY === 0) setOpen(true);
+                  else requestAnimationFrame(checkScroll);
                 };
 
                 requestAnimationFrame(checkScroll);
-              } else {
-                setOpen(false);
-              }
+              } else setOpen(false);
             }}
             whileTap={{ scale: 0.8 }}
           >
@@ -202,7 +213,7 @@ export default function Navbar() {
                   exit={{ rotate: 90, opacity: 0 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <FaTimes />
+                  <FaTimes size={26} />
                 </motion.div>
               ) : (
                 <motion.div
@@ -212,7 +223,7 @@ export default function Navbar() {
                   exit={{ rotate: -90, opacity: 0 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <FaBars />
+                  <FaBars size={26} />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -259,7 +270,7 @@ export default function Navbar() {
                       stiffness: 120,
                     }}
                     whileHover={{ x: -4 }}
-                    className="text-right hover:text-accent2 block"
+                    className="text-right hover:text-accent2 block text-lg font-normal"
                   >
                     {link.name}
                   </motion.span>

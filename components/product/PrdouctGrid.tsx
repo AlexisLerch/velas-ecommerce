@@ -61,7 +61,7 @@ export default function ProductsGrid({ products }: Props) {
         </button>
 
         <AnimatePresence>
-          {(showFilters || !isMobile) && (
+          {/* {(showFilters || !isMobile) && (
             <motion.div
               variants={filterVariants}
               initial="hidden"
@@ -100,7 +100,7 @@ export default function ProductsGrid({ products }: Props) {
                 />
               </div>
             </motion.div>
-          )}
+          )} */}
         </AnimatePresence>
 
         <motion.div

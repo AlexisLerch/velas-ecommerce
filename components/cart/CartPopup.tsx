@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/store/cartStore";
 import { RiShoppingBasketLine } from "react-icons/ri";
 import { GiCandleFlame } from "react-icons/gi";
+import Image from "next/image";
 
 export default function CartPopup() {
   const showPopup = useCartStore((state) => state.showPopup);
@@ -12,7 +13,7 @@ export default function CartPopup() {
 
   useEffect(() => {
     if (showPopup) {
-      const timer = setTimeout(() => setShowPopup(false), 1000); // dura 2.2s
+      const timer = setTimeout(() => setShowPopup(false), 1000); // dura 1s
       return () => clearTimeout(timer);
     }
   }, [showPopup, setShowPopup]);
@@ -31,9 +32,9 @@ export default function CartPopup() {
             animate={{ scale: 1, rotate: 0, opacity: 1 }}
             exit={{ scale: 0.5, rotate: 15, opacity: 0 }}
             transition={{ type: "spring", stiffness: 500, damping: 25 }}
-            className="bg-linear-to-tr  p-8 rounded-3xl  flex flex-col items-center gap-6 w-70 relative"
+            className="bg-linear-to-tr p-8 rounded-3xl flex flex-col items-center gap-6 w-70 relative"
           >
-            {/* Carrito animado + velita + cantidad */}
+            {/* Carrito animado + velita + cantidad + logo */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: [0, 1.3, 1] }}
@@ -45,6 +46,23 @@ export default function CartPopup() {
               }}
               className="w-40 h-40 rounded-2xl flex flex-col items-center justify-center text-white relative gap-2"
             >
+              {/* Logo Frodito */}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: [0, 1.2, 1] }}
+                transition={{ duration: 0.7, type: "spring", stiffness: 500 }}
+                className="absolute -top-6 left-1/4 -translate-x-1/2"
+              >
+                <Image
+                  src="/frodo.png"
+                  alt="Frodito Logo"
+                  width={48}
+                  height={48}
+                  className="object-contain"
+                />
+              </motion.div>
+
+              {/* Carrito */}
               <RiShoppingBasketLine size={120} />
 
               {/* Cantidad + velita */}
