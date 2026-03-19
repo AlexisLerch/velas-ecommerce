@@ -24,11 +24,10 @@ export default function ProductCard({
   const addItem = useCartStore((state) => state.addItem);
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita que al hacer click también se dispare el link
+    e.stopPropagation();
     addItem({ id, name, price, image, quantity: 1 });
   };
 
-  // Variants para animación de entrada
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -39,17 +38,18 @@ export default function ProductCard({
   };
 
   return (
-    <Link href={`/products/${id}`} className="block">
-      <motion.div
-        variants={cardVariants}
-        initial="hidden"
-        animate="visible"
-        whileHover={{ y: -8, scale: 1 }}
-        whileTap={{ scale: 0.97 }}
-        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-        className="group relative overflow-hidden cursor-pointer rounded-lg shadow-sm"
-      >
-        <div className="overflow-hidden aspect-square relative">
+    <motion.div
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover={{ y: -8 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+      className="group relative overflow-hidden rounded-lg shadow-sm bg-accent/10"
+    >
+      {/* CLICK A DETALLE (imagen + info) */}
+      <Link href={`/products/${id}`}>
+        <div className="overflow-hidden aspect-square relative cursor-pointer">
           <Image
             src={image}
             alt={name}
@@ -59,7 +59,7 @@ export default function ProductCard({
           />
         </div>
 
-        <div className="p-4 flex flex-col gap-2">
+        <div className="p-4 flex flex-col gap-2 cursor-pointer">
           <h3 className="text-lg font-semibold text-textMain text-center">
             {name}
           </h3>
@@ -69,33 +69,27 @@ export default function ProductCard({
           <p className="text-xl font-bold text-textMain text-center">
             ${price}
           </p>
-
-          {/* 👇 IMPORTANTE */}
-          <div className="mt-3 flex items-center gap-2">
-            <button
-              onClick={(e) => {
-                e.preventDefault(); // 🔥 clave
-                e.stopPropagation();
-                handleAddToCart(e);
-              }}
-              className="flex-1 bg-accent2 text-white py-2 rounded-lg font-medium shadow-sm hover:bg-secondary2/70 transition"
-            >
-              Agregar
-            </button>
-
-            <button
-              onClick={(e) => {
-                e.preventDefault(); // 🔥 clave
-                e.stopPropagation();
-                handleAddToCart(e);
-              }}
-              className="p-2 bg-accent2 rounded-lg shadow hover:bg-secondary2/70 transition"
-            >
-              <RiShoppingBasketLine className="text-navbar text-xl" />
-            </button>
-          </div>
         </div>
-      </motion.div>
-    </Link>
+      </Link>
+
+      {/* BOTONES */}
+      <div className="mt-3 flex items-center gap-2 px-4 pb-4">
+        {/* ✅ SOLO navega */}
+        <Link
+          href={`/products/${id}`}
+          className="flex-1 bg-accent2 text-white py-2 text-center rounded-lg font-medium shadow-sm hover:bg-secondary2/70 transition"
+        >
+          Ver detalles
+        </Link>
+
+        {/* ✅ SOLO agrega al carrito */}
+        <button
+          onClick={handleAddToCart}
+          className="p-2 bg-accent2 rounded-lg shadow hover:bg-secondary2/70 transition"
+        >
+          <RiShoppingBasketLine className="text-navbar text-xl" />
+        </button>
+      </div>
+    </motion.div>
   );
 }
