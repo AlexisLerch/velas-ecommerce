@@ -119,7 +119,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                 image: product.image,
               })
             }
-            className="bg-linear-to-r from-accent2 to-navbar text-white px-10 py-4 rounded-full tracking-wide shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
+            className="bg-linear-to-r from-accent2 to-navbar text-white px-4 sm:px-10 py-4 rounded-lg tracking-wide shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
           >
             Agregar al carrito
           </motion.button>
