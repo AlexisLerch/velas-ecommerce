@@ -55,7 +55,7 @@ export default function Navbar() {
             transition={{ duration: 0.25 }}
             onClick={() => setOpen(false)}
           >
-            <div className="w-23 h-23 shrink-0 ml-10">
+            <div className="w-23 h-23 shrink-0 ml-5 sm:ml-10">
               <Image
                 src="/logo.png"
                 alt="Frodito Logo"
