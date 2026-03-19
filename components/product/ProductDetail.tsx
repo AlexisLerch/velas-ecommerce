@@ -72,7 +72,7 @@ export default function ProductDetail({ product }: { product: Product }) {
               initial={{ height: 0 }}
               animate={{ height: 60 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="w-0.5 bg-linear-to-b from-[#b7a9b1] to-[#5a3b4c]"
+              className="w-0.5 bg-linear-to-b to-[#b7a9b1] from-[#5a3b4c]"
             />
           </div>
 
