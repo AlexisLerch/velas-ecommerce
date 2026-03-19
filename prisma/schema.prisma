@@ -25,4 +25,5 @@ model CartItem {
   name      String
   price     Float
   quantity  Int
+  tag       String?
 }

@@ -9,18 +9,38 @@ import Image from "next/image";
 export default function ProductDetail({ product }: { product: Product }) {
   const { addItem } = useCartStore();
   const [hovered, setHovered] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [selectedTag, setSelectedTag] = useState(1);
+
+  // Fotos de etiquetas (temporalmente usamos la misma foto)
+  const tagImages: Record<number, string> = {
+    1: product.image,
+    2: product.image,
+    3: product.image,
+  };
+
+  // Animaciones
+  const imageVariants = {
+    hidden: { opacity: 0, x: -150 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8 } },
+  };
+
+  const infoVariants = {
+    hidden: { opacity: 0, x: 150 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, delay: 0.3 } },
+  };
 
   return (
-    <main className="min-h-screen px-6 py-20">
+    <main className="min-h-screen px-6 py-20 bg-linear-to-br from-[#fff1f5] to-transparent">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center relative">
         {/* Imagen con efecto premium */}
         <motion.div
-          initial={{ opacity: 0, x: -80 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9 }}
           className="relative flex justify-center"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
+          initial="hidden"
+          animate="visible"
+          variants={imageVariants}
         >
           {/* Glow detrás de la imagen */}
           <motion.div
@@ -30,13 +50,15 @@ export default function ProductDetail({ product }: { product: Product }) {
             transition={{ duration: 0.5 }}
           />
 
-          {/* Imagen con zoom */}
+          {/* Imagen grande con animación al cambiar etiqueta */}
           <motion.div
-            animate={{ scale: hovered ? 1.15 : 1 }}
-            transition={{ duration: 0.5 }}
+            key={selectedTag} // ⚡ reinicia animación al cambiar etiqueta
+            initial={{ opacity: 0, scale: 0.8, x: -50 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
           >
             <Image
-              src={product.image}
+              src={tagImages[selectedTag]}
               alt={product.name}
               width={520}
               height={520}
@@ -55,10 +77,10 @@ export default function ProductDetail({ product }: { product: Product }) {
 
         {/* Info con líneas en L y animaciones */}
         <motion.div
-          initial={{ opacity: 0, x: 80 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9 }}
           className="relative flex flex-col md:items-start items-center text-center md:text-left"
+          initial="hidden"
+          animate="visible"
+          variants={infoVariants}
         >
           {/* Línea en L Desktop */}
           <div className="hidden md:flex absolute -left-36 top-10 items-start">
@@ -75,38 +97,97 @@ export default function ProductDetail({ product }: { product: Product }) {
               className="w-0.5 bg-linear-to-b to-[#b7a9b1] from-[#5a3b4c]"
             />
           </div>
-
           {/* Nombre */}
           <motion.h1
-            className="text-4xl md:text-6xl  font-semibold tracking-wide text-[#5a3b4c] mb-6 px-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-4xl md:text-6xl font-semibold tracking-wide text-[#5a3b4c] mb-6 px-4"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0, transition: { duration: 0.8 } }}
           >
             {product.name}
           </motion.h1>
-
           {/* Descripción */}
           <motion.p
-            className="text-gray-600 leading-relaxed mb-8 max-w-md px-6 text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-gray-600 leading-relaxed mb-6 max-w-md px-6 text-lg"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              transition: { duration: 0.8, delay: 0.1 },
+            }}
           >
             {product.description ?? "Sin descripción disponible"}
           </motion.p>
-
           {/* Precio */}
           <motion.p
-            className="text-3xl md:text-3xl font-bold text-[#5a3b4c] mb-8 drop-shadow-md px-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-3xl md:text-3xl font-bold text-[#5a3b4c] mb-4 drop-shadow-md px-6"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              transition: { duration: 0.8, delay: 0.2 },
+            }}
           >
             ${product.price}
           </motion.p>
-
-          {/* Botón */}
+          {/* Selector de cantidad */}
+          <motion.div
+            className="flex items-center gap-4 mb-6"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              transition: { duration: 0.8, delay: 0.3 },
+            }}
+          >
+            <button
+              onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
+              className="px-3 py-1 bg-gray-300 rounded-lg"
+            >
+              -
+            </button>
+            <span className="text-xl font-semibold">{quantity}</span>
+            <button
+              onClick={() => setQuantity((prev) => prev + 1)}
+              className="px-3 py-1 bg-gray-300 rounded-lg"
+            >
+              +
+            </button>
+          </motion.div>
+          {/* Selector de etiqueta */}
+          <p className="mb-2 text-textMain ">Selecciona la Etiquta</p>
+          <motion.div
+            className="flex gap-4 mb-8 justify-center md:justify-start"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              transition: { duration: 0.8, delay: 0.4 },
+            }}
+          >
+            {[1, 2, 3].map((tag) => (
+              <motion.div
+                key={tag}
+                className={`cursor-pointer p-1 rounded-lg border-2 ${
+                  selectedTag === tag ? "border-navbar" : "border-gray-300"
+                }`}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setSelectedTag(tag)}
+              >
+                <motion.img
+                  src={tagImages[tag]}
+                  alt={`Etiqueta #${tag}`}
+                  width={80}
+                  height={80}
+                  className="object-contain rounded"
+                  key={tag}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+          {/* Botón agregar al carrito */}
           <motion.button
             whileTap={{ scale: 0.95 }}
             whileHover={{ scale: 1.05 }}
@@ -115,11 +196,11 @@ export default function ProductDetail({ product }: { product: Product }) {
                 id: product.id,
                 name: product.name,
                 price: product.price,
-                quantity: 1,
-                image: product.image,
+                quantity,
+                image: tagImages[selectedTag],
               })
             }
-            className="bg-linear-to-r from-accent2 to-navbar text-white px-4 sm:px-10 py-4 rounded-lg tracking-wide shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
+            className="bg-navbar text-white px-6 sm:px-10 py-4 rounded-lg tracking-wide shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
           >
             Agregar al carrito
           </motion.button>

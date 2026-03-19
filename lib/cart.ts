@@ -22,6 +22,7 @@ export async function saveUserCart(userId: string, items: CartItem[]) {
       name: i.name,
       price: i.price,
       quantity: i.quantity,
+      // tag: i.tag,
     })),
   });
 }
