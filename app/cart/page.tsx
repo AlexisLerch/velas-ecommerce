@@ -1,5 +1,7 @@
 "use client";
+
 import React, { useEffect, useRef } from "react";
+import Link from "next/link";
 import { useCartStore, CartItem } from "@/store/cartStore";
 
 type CartItemFromDB = {
@@ -61,29 +63,42 @@ export default function CartPage() {
   const total = cart.reduce((acc, i) => acc + i.price * i.quantity, 0);
 
   return (
-    <div className="p-10">
+    <div className="max-w-4xl mx-auto p-10">
       <h1 className="text-3xl font-bold mb-6">Tu Carrito</h1>
 
       {cart.length === 0 ? (
-        <p>Tu carrito está vacío</p>
+        <p className="text-gray-500">Tu carrito está vacío</p>
       ) : (
         <div className="space-y-4">
           {cart.map((item) => (
             <div
               key={item.id}
-              className="flex justify-between p-4 border rounded-md"
+              className="flex justify-between items-center p-4 border rounded-md"
             >
               <span>
                 {item.name} x {item.quantity}
               </span>
-              <span>${(item.price * item.quantity).toFixed(2)}</span>
+              <span className="font-medium">
+                ${(item.price * item.quantity).toFixed(2)}
+              </span>
             </div>
           ))}
 
-          <div className="flex justify-between font-bold text-lg mt-4">
+          {/* 💰 TOTAL */}
+          <div className="flex justify-between font-bold text-lg mt-6 border-t pt-4">
             <span>Total:</span>
             <span>${total.toFixed(2)}</span>
           </div>
+
+          {/* 🚀 BOTÓN CHECKOUT */}
+          <Link href="/checkout">
+            <button
+              disabled={cart.length === 0}
+              className="w-full mt-6 bg-black text-white py-3 rounded-lg hover:opacity-90 transition disabled:opacity-50"
+            >
+              Finalizar compra
+            </button>
+          </Link>
         </div>
       )}
     </div>

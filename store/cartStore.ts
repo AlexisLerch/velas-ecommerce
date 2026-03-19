@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface CartItem {
   id: string;
@@ -23,47 +24,54 @@ interface CartState {
   setShowPopup: (val: boolean) => void;
 }
 
-export const useCartStore = create<CartState>((set, get) => ({
-  items: [],
+export const useCartStore = create<CartState>()(
+  persist(
+    (set, get) => ({
+      items: [],
 
-  // 🔥 REEMPLAZAR carrito (FIX DUPLICADOS)
-  setItems: (items) => set({ items }),
+      // 🔥 REEMPLAZAR carrito
+      setItems: (items) => set({ items }),
 
-  clearCart: () => set({ items: [] }),
+      clearCart: () => set({ items: [] }),
 
-  showPopup: false,
-  setShowPopup: (val) => set({ showPopup: val }),
+      showPopup: false,
+      setShowPopup: (val) => set({ showPopup: val }),
 
-  addItem: (item) =>
-    set((state) => {
-      const existing = state.items.find((i) => i.id === item.id);
+      addItem: (item) =>
+        set((state) => {
+          const existing = state.items.find((i) => i.id === item.id);
 
-      if (existing) {
-        return {
-          items: state.items.map((i) =>
-            i.id === item.id
-              ? { ...i, quantity: i.quantity + (item.quantity || 1) }
-              : i,
-          ),
-          showPopup: true,
-        };
-      }
+          if (existing) {
+            return {
+              items: state.items.map((i) =>
+                i.id === item.id
+                  ? { ...i, quantity: i.quantity + (item.quantity || 1) }
+                  : i,
+              ),
+              showPopup: true,
+            };
+          }
 
-      return {
-        items: [...state.items, { ...item, quantity: item.quantity || 1 }],
-        showPopup: true,
-      };
+          return {
+            items: [...state.items, { ...item, quantity: item.quantity || 1 }],
+            showPopup: true,
+          };
+        }),
+
+      removeItem: (id) =>
+        set((state) => ({
+          items: state.items.filter((i) => i.id !== id),
+        })),
+
+      // 🔥 helpers
+      getTotalItems: () =>
+        get().items.reduce((acc, item) => acc + item.quantity, 0),
+
+      getTotalPrice: () =>
+        get().items.reduce((acc, item) => acc + item.price * item.quantity, 0),
     }),
-
-  removeItem: (id) =>
-    set((state) => ({
-      items: state.items.filter((i) => i.id !== id),
-    })),
-
-  // 🔥 helpers PRO
-  getTotalItems: () =>
-    get().items.reduce((acc, item) => acc + item.quantity, 0),
-
-  getTotalPrice: () =>
-    get().items.reduce((acc, item) => acc + item.price * item.quantity, 0),
-}));
+    {
+      name: "cart-storage", // 🔥 clave en localStorage
+    },
+  ),
+);
