@@ -193,11 +193,12 @@ export default function ProductDetail({ product }: { product: Product }) {
             whileHover={{ scale: 1.05 }}
             onClick={() =>
               addItem({
-                id: product.id,
+                id: crypto.randomUUID(), // 👈 ID único del item en carrito
+                productId: product.id, // 👈 ID REAL del producto
                 name: product.name,
                 price: product.price,
-                quantity,
-                image: tagImages[selectedTag],
+                quantity: 1,
+                image: product.image,
               })
             }
             className="bg-navbar text-white px-6 sm:px-10 py-4 rounded-lg tracking-wide shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
