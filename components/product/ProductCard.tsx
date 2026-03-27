@@ -25,7 +25,14 @@ export default function ProductCard({
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
-    addItem({ id, name, price, image, quantity: 1 });
+    addItem({
+      id: crypto.randomUUID(), // 👈 ID único del item en carrito
+      productId: id, // 👈 ID REAL del producto
+      name,
+      price,
+      image,
+      quantity: 1,
+    });
   };
 
   const cardVariants = {
