@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
@@ -8,12 +9,13 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col items-center gap-8 text-center">
         {/* Logo / marca */}
         <div className="flex flex-col items-center">
-          <h2
-            className="text-3xl font-bold mb-4"
-            style={{ fontFamily: "var(--font-logo)" }}
-          >
-            Velas
-          </h2>
+          <Image
+            src="/logo.png"
+            alt="Frodito Logo"
+            width={100}
+            height={100}
+            className="object-contain mb-4"
+          />
           <p className="text-textMuted text-sm max-w-md">
             Velas artesanales hechas con amor para crear ambientes únicos en tu
             hogar.

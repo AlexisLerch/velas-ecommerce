@@ -18,7 +18,7 @@ export async function saveUserCart(userId: string, items: CartItem[]) {
   await prisma.cartItem.createMany({
     data: items.map((i) => ({
       userId,
-      productId: i.id,
+      productId: i.productId,
       name: i.name,
       price: i.price,
       quantity: i.quantity,
