@@ -1,9 +1,9 @@
-import React from "react";
+import FavoritesClient from "@/components/favorites/FavoritesClient";
+import { getProducts } from "@/lib/products";
 
-export default function FavoritePage() {
-  return (
-    <div className="p-10">
-      <h1 className="text-3xl font-bold">Favoritos</h1>
-    </div>
-  );
+export const metadata = { title: "Favoritos | La Comarca de Cera" };
+
+export default async function FavoritePage() {
+  const products = await getProducts();
+  return <FavoritesClient products={products} />;
 }

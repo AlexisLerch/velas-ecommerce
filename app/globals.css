@@ -1,24 +1,91 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #faedcd;
   /* --background: #7e8c69; */
   --foreground: #333333;
+
+  --primary: #9cad8c;
+  --secondary: #faedcd;
+  --accent: #ccd5ae;
+  --bg: #fefae0;
+  --text: #333333;
+  --navbar: #930825;
+  --background2: #c99a92;
+  --secondary2: #7e8c69;
+  --text2: #a8a8a8;
+  --accent2: #a3596a;
+  --textMain: #333333;
+  --bgCard: #fef8d6;
+
+  --heading: #5a3b4c;
+  --line: #b7a9b1;
+  --card: #fff8f0;
+  --cardBorder: #e8d8c3;
+  --muted: #4b5563;
+  --brand: #930825;
+  --onNavbar: #fef8d6;
+
+  --scroll-thumb: rgba(0, 0, 0, 0.2);
+  --scroll-thumb-hover: rgba(0, 0, 0, 0.4);
+
+  color-scheme: light;
+}
+
+.dark {
+  --background: #1c1714;
+  --foreground: #f1e6d2;
+
+  --primary: #8fa07f;
+  --secondary: #2e2620;
+  --accent: #ccd5ae;
+  --bg: #241e1a;
+  --text: #f1e6d2;
+  --navbar: #5e0718;
+  --background2: #8a6560;
+  --secondary2: #a3b38e;
+  --text2: #8a8178;
+  --accent2: #b06778;
+  --textMain: #f1e6d2;
+  --bgCard: #2a231e;
+
+  --heading: #e3c3d3;
+  --line: #6e5a66;
+  --card: #2a231e;
+  --cardBorder: #4a3d33;
+  --muted: #bfb3a3;
+  --brand: #e07a8f;
+  --onNavbar: #fef8d6;
+
+  --scroll-thumb: rgba(255, 255, 255, 0.2);
+  --scroll-thumb-hover: rgba(255, 255, 255, 0.4);
+
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-primary: #9cad8c;
-  --color-secondary: #faedcd;
-  --color-accent: #ccd5ae;
-  --color-background: #fefae0;
-  --color-text: #333333;
-  --color-navbar: #930825;
-  --color-background2: #c99a92;
-  --color-secondary2: #7e8c69;
-  --color-text2: #a8a8a8;
-  --color-accent2: #a3596a;
-  --color-textMain: #333333;
-  --color-bgCard: #fef8d6;
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-background: var(--bg);
+  --color-text: var(--text);
+  --color-navbar: var(--navbar);
+  --color-background2: var(--background2);
+  --color-secondary2: var(--secondary2);
+  --color-text2: var(--text2);
+  --color-accent2: var(--accent2);
+  --color-textMain: var(--textMain);
+  --color-bgCard: var(--bgCard);
+
+  --color-heading: var(--heading);
+  --color-line: var(--line);
+  --color-card: var(--card);
+  --color-cardBorder: var(--cardBorder);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-onNavbar: var(--onNavbar);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -28,6 +95,9 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* 🔥 Scrollbar PRO */
@@ -40,17 +110,17 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--scroll-thumb);
   border-radius: 999px;
   transition: background 0.3s;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--scroll-thumb-hover);
 }
 
 /* 🧠 Firefox */
 .custom-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  scrollbar-color: var(--scroll-thumb) transparent;
 }

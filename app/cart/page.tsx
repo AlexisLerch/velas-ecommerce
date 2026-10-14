@@ -89,7 +89,7 @@ export default function CartPage() {
               {/* 🧺 Basket */}
               <RiShoppingBasketLine
                 size={110}
-                className="text-navbar sm:w-30 sm:h-30"
+                className="text-brand sm:w-30 sm:h-30"
               />
 
               {/* 🕯️ Velita ARRIBA centrada */}
@@ -99,7 +99,7 @@ export default function CartPage() {
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className="absolute -top-6 left-1/3 -translate-x-1/2"
               >
-                <GiCandleFlame size={28} className="text-navbar " />
+                <GiCandleFlame size={28} className="text-brand " />
               </motion.div>
 
               {/* 🧙 Frodo ARRIBA IZQUIERDA */}
@@ -119,10 +119,10 @@ export default function CartPage() {
               </motion.div>
 
               {/* 📝 Texto */}
-              <p className="text-gray-500 mt-4 text-center">
+              <p className="text-muted mt-4 text-center">
                 Tu carrito está vacío
               </p>
-              <span className="text-sm text-gray-400">Ir a ver velas ✨</span>
+              <span className="text-sm text-text2">Ir a ver velas ✨</span>
             </motion.div>
           </Link>
         </div>
@@ -151,7 +151,7 @@ export default function CartPage() {
 
                     <div>
                       <p className="font-medium">{item.name}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-muted">
                         Cantidad: {item.quantity}
                       </p>
                     </div>

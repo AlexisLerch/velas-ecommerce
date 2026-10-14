@@ -22,13 +22,19 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-logo",
 });
 
+// Aplica el tema guardado antes de pintar para evitar el "flash" claro
+const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.classList.add("dark")}}catch(e){}})()`;
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body
         className={`${inter.variable} ${cormorant.variable} ${playfair.className}`}
       >

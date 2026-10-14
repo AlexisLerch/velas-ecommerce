@@ -1,9 +1,9 @@
-import React from "react";
+import SearchClient from "@/components/search/SearchClient";
+import { getProducts } from "@/lib/products";
 
-export default function SearchPage() {
-  return (
-    <div className="p-10">
-      <h1 className="text-3xl font-bold">Buscar</h1>
-    </div>
-  );
+export const metadata = { title: "Buscar | La Comarca de Cera" };
+
+export default async function SearchPage() {
+  const products = await getProducts();
+  return <SearchClient products={products} />;
 }

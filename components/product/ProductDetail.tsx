@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { useCartStore } from "@/store/cartStore";
 import { useState } from "react";
 import Image from "next/image";
+import FavoriteButton from "./FavoriteButton";
+import { whatsappLink } from "@/config/site";
 
 export default function ProductDetail({ product }: { product: Product }) {
   const { addItem } = useCartStore();
@@ -12,12 +14,18 @@ export default function ProductDetail({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedTag, setSelectedTag] = useState(1);
 
-  // Fotos de etiquetas (temporalmente usamos la misma foto)
-  const tagImages: Record<number, string> = {
-    1: product.image,
-    2: product.image,
-    3: product.image,
-  };
+  // Galería: todas las fotos del producto (la primera es la portada)
+  const gallery = product.images?.length ? product.images : [product.image];
+  const tagImages: Record<number, string> = Object.fromEntries(
+    gallery.map((src, i) => [i + 1, src]),
+  );
+  const details = [
+    ["Aroma", product.scent],
+    ["Notas", product.notes?.join(" · ")],
+    ["Tamaño", product.size],
+    ["Duración", product.burnTime],
+    ["Cera", product.wax],
+  ].filter(([, value]) => value) as [string, string][];
 
   // Animaciones
   const imageVariants = {
@@ -68,7 +76,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 
           {/* Línea animada en mobile */}
           <motion.div
-            className="md:hidden absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-linear-to-r from-[#b7a9b1] to-[#5a3b4c] rounded-full animate-scaleX"
+            className="md:hidden absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-linear-to-r from-line to-heading rounded-full animate-scaleX"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -88,18 +96,18 @@ export default function ProductDetail({ product }: { product: Product }) {
               initial={{ width: 0 }}
               animate={{ width: 140 }}
               transition={{ duration: 0.8 }}
-              className="h-0.5 bg-linear-to-r from-[#b7a9b1] to-[#5a3b4c]"
+              className="h-0.5 bg-linear-to-r from-line to-heading"
             />
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: 60 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="w-0.5 bg-linear-to-b to-[#b7a9b1] from-[#5a3b4c]"
+              className="w-0.5 bg-linear-to-b to-line from-heading"
             />
           </div>
           {/* Nombre */}
           <motion.h1
-            className="text-4xl md:text-6xl font-semibold tracking-wide text-[#5a3b4c] mb-6 px-4"
+            className="text-4xl md:text-6xl font-semibold tracking-wide text-heading mb-6 px-4"
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0, transition: { duration: 0.8 } }}
           >
@@ -107,7 +115,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           </motion.h1>
           {/* Descripción */}
           <motion.p
-            className="text-gray-600 leading-relaxed mb-6 max-w-md px-6 text-lg"
+            className="text-muted leading-relaxed mb-6 max-w-md px-6 text-lg"
             initial={{ opacity: 0, x: 100 }}
             animate={{
               opacity: 1,
@@ -119,7 +127,7 @@ export default function ProductDetail({ product }: { product: Product }) {
           </motion.p>
           {/* Precio */}
           <motion.p
-            className="text-3xl md:text-3xl font-bold text-[#5a3b4c] mb-4 drop-shadow-md px-6"
+            className="text-3xl md:text-3xl font-bold text-heading mb-4 drop-shadow-md px-6"
             initial={{ opacity: 0, x: 100 }}
             animate={{
               opacity: 1,
@@ -127,7 +135,7 @@ export default function ProductDetail({ product }: { product: Product }) {
               transition: { duration: 0.8, delay: 0.2 },
             }}
           >
-            ${product.price}
+            ${product.price.toLocaleString("es-AR")}
           </motion.p>
           {/* Selector de cantidad */}
           <motion.div
@@ -154,7 +162,9 @@ export default function ProductDetail({ product }: { product: Product }) {
             </button>
           </motion.div>
           {/* Selector de etiqueta */}
-          <p className="mb-2 text-textMain ">Selecciona la Etiquta</p>
+          {gallery.length > 1 && (
+            <p className="mb-2 text-textMain ">Más fotos</p>
+          )}
           <motion.div
             className="flex gap-4 mb-8 justify-center md:justify-start"
             initial={{ opacity: 0, x: 100 }}
@@ -164,11 +174,12 @@ export default function ProductDetail({ product }: { product: Product }) {
               transition: { duration: 0.8, delay: 0.4 },
             }}
           >
-            {[1, 2, 3].map((tag) => (
+            {gallery.length > 1 &&
+              gallery.map((_, i) => i + 1).map((tag) => (
               <motion.div
                 key={tag}
                 className={`cursor-pointer p-1 rounded-lg border-2 ${
-                  selectedTag === tag ? "border-navbar" : "border-gray-300"
+                  selectedTag === tag ? "border-navbar" : "border-cardBorder"
                 }`}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setSelectedTag(tag)}
@@ -197,7 +208,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                 productId: product.id, // 👈 ID REAL del producto
                 name: product.name,
                 price: product.price,
-                quantity: 1,
+                quantity,
                 image: product.image,
               })
             }
@@ -205,6 +216,31 @@ export default function ProductDetail({ product }: { product: Product }) {
           >
             Agregar al carrito
           </motion.button>
+
+          <div className="mt-6 flex items-center gap-4 text-sm text-muted">
+            <FavoriteButton id={product.id} />
+            <a
+              href={whatsappLink(`Hola! Quiero consultar por ${product.name}`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 hover:text-heading"
+            >
+              Consultar por WhatsApp
+            </a>
+          </div>
+
+          {details.length > 0 && (
+            <dl className="mt-10 w-full max-w-md px-6 text-left border-t border-line pt-6 space-y-3 text-sm">
+              {details.map(([label, value]) => (
+                <div key={label} className="flex gap-4">
+                  <dt className="w-24 shrink-0 font-semibold tracking-widest uppercase text-heading text-xs pt-0.5">
+                    {label}
+                  </dt>
+                  <dd className="text-muted">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
         </motion.div>
       </div>
     </main>

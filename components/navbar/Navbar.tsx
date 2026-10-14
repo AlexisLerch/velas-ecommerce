@@ -8,6 +8,7 @@ import { RiShoppingBasketLine } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import { useCartStore } from "@/store/cartStore";
 import Image from "next/image";
+import ThemeToggle from "@/components/themeToggle/ThemeToggle";
 
 const links = [
   { name: "Nosotros", href: "/" },
@@ -141,6 +142,7 @@ export default function Navbar() {
               </Link>
             );
           })}
+          <ThemeToggle />
         </div>
 
         {/* Mobile button */}
@@ -185,6 +187,8 @@ export default function Navbar() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          <ThemeToggle />
 
           <motion.button
             className="text-accent text-xl mr-2"

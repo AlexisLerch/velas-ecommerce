@@ -76,14 +76,14 @@ export default function FloatingCart({ count }: Props) {
           whileTap={{ scale: 0.9 }}
           className="relative flex items-center gap-3 px-4 py-3 rounded-2xl backdrop-blur-md bg-navbar border border-white/40 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
         >
-          <RiShoppingBasketLine className="w-6 h-6 text-bgCard" />
+          <RiShoppingBasketLine className="w-6 h-6 text-onNavbar" />
 
           <motion.span
             key={count}
             initial={{ scale: 0.6, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="absolute -top-2 -right-2 text-bgCard text-md font-medium px-5 py-1 rounded-full"
+            className="absolute -top-2 -right-2 text-onNavbar text-md font-medium px-5 py-1 rounded-full"
           >
             {count}
           </motion.span>

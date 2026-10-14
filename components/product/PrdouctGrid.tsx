@@ -5,6 +5,7 @@ import ProductCard from "./ProductCard";
 import { Product } from "@/lib/products";
 import { HiOutlineFilter } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
+import { categories, type Category } from "@/lib/catalog";
 
 interface Props {
   products: Product[];
@@ -13,8 +14,9 @@ interface Props {
 export default function ProductsGrid({ products }: Props) {
   const [search, setSearch] = useState("");
   const [maxPrice, setMaxPrice] = useState(
-    Math.max(...products.map((p) => p.price)),
+    Math.max(0, ...products.map((p) => p.price)),
   );
+  const [category, setCategory] = useState<Category | "Todas">("Todas");
   const [showFilters, setShowFilters] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -28,7 +30,11 @@ export default function ProductsGrid({ products }: Props) {
   const filtered = products.filter(
     (p) =>
       p.name.toLowerCase().includes(search.toLowerCase()) &&
-      p.price <= maxPrice,
+      p.price <= maxPrice &&
+      (category === "Todas" || p.category === category),
+  );
+  const availableCategories = categories.filter((c) =>
+    products.some((p) => p.category === c),
   );
 
   const containerVariants = {
@@ -47,14 +53,32 @@ export default function ProductsGrid({ products }: Props) {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9 }}
-        className="text-center text-4xl md:text-6xl font-light tracking-wide text-[#5a3b4c] mb-16 md:mb-24"
+        className="text-center text-4xl md:text-6xl font-light tracking-wide text-heading mb-16 md:mb-24"
       >
         Nuestras Velas
       </motion.h1>
 
+      {availableCategories.length > 1 && (
+        <div className="flex flex-wrap justify-center gap-3 mb-10 -mt-8 md:-mt-14">
+          {(["Todas", ...availableCategories] as const).map((c) => (
+            <button
+              key={c}
+              onClick={() => setCategory(c)}
+              className={`px-5 py-2 rounded-full text-sm border transition ${
+                category === c
+                  ? "bg-navbar text-white border-navbar"
+                  : "bg-card text-textMain border-cardBorder hover:border-navbar"
+              }`}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row gap-6">
         <button
-          className="md:hidden flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-lg self-start"
+          className="md:hidden flex items-center gap-2 bg-navbar text-white px-4 py-2 rounded-lg self-start"
           onClick={() => setShowFilters(!showFilters)}
         >
           <HiOutlineFilter className="w-5 h-5" /> Filtros
@@ -69,12 +93,12 @@ export default function ProductsGrid({ products }: Props) {
               exit="exit"
               className="w-full md:w-64 bg-accent2 p-6 rounded-2xl shadow-lg shrink-0"
             >
-              <h2 className="text-lg font-semibold mb-4 text-gray-800">
+              <h2 className="text-lg font-semibold mb-4 text-textMain">
                 Filtros
               </h2>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1 text-gray-700">
+                <label className="block text-sm font-medium mb-1 text-textMain">
                   Buscar
                 </label>
                 <input
@@ -82,12 +106,12 @@ export default function ProductsGrid({ products }: Props) {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Nombre del producto"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-300 focus:outline-none"
+                  className="w-full px-3 py-2 border border-cardBorder rounded-lg focus:ring-2 focus:ring-cardBorder focus:outline-none"
                 />
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1 text-gray-700">
+                <label className="block text-sm font-medium mb-1 text-textMain">
                   Precio máximo: ${maxPrice}
                 </label>
                 <input
@@ -109,6 +133,11 @@ export default function ProductsGrid({ products }: Props) {
           initial="hidden"
           animate="visible"
         >
+          {filtered.length === 0 && (
+            <p className="col-span-full text-center text-muted py-16">
+              No encontramos velas en esta categoría.
+            </p>
+          )}
           {filtered.map((p) => (
             <ProductCard
               key={p.id}
@@ -117,6 +146,7 @@ export default function ProductsGrid({ products }: Props) {
               price={p.price}
               description={p.description ?? ""}
               image={p.image}
+              badge={p.badge}
             />
           ))}
         </motion.div>

@@ -11,7 +11,7 @@ export default function NuestrasVelas() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9 }}
-          className="text-center text-4xl md:text-6xl font-light tracking-wide text-[#5a3b4c] mb-20 md:mb-28"
+          className="text-center text-4xl md:text-6xl font-light tracking-wide text-heading mb-20 md:mb-28"
         >
           Nuestras Velas
         </motion.h1>
@@ -47,7 +47,7 @@ export default function NuestrasVelas() {
                 whileInView={{ width: 60 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
-                className="md:hidden h-px bg-[#b7a9b1] mx-auto mb-6"
+                className="md:hidden h-px bg-line mx-auto mb-6"
               />
 
               {/* LINEA EN L */}
@@ -57,7 +57,7 @@ export default function NuestrasVelas() {
                   whileInView={{ width: 120 }}
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
-                  className="h-px bg-[#b7a9b1]"
+                  className="h-px bg-line"
                 />
 
                 <motion.div
@@ -65,15 +65,15 @@ export default function NuestrasVelas() {
                   whileInView={{ height: 50 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                   viewport={{ once: true }}
-                  className="w-px bg-[#b7a9b1]"
+                  className="w-px bg-line"
                 />
               </div>
 
-              <h2 className="text-lg md:text-xl font-semibold tracking-widest text-[#5a3b4c] mb-4">
+              <h2 className="text-lg md:text-xl font-semibold tracking-widest text-heading mb-4">
                 VELA LIMONCELLO 190G
               </h2>
 
-              <p className="text-gray-600 leading-relaxed text-sm md:text-base">
+              <p className="text-muted leading-relaxed text-sm md:text-base">
                 Para quienes empiezan el día con calma y buscan un aroma fresco
                 que despierte los sentidos. Su fragancia cítrica ilumina el
                 ambiente y aporta energía.
@@ -97,7 +97,7 @@ export default function NuestrasVelas() {
                   whileInView={{ width: 120 }}
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
-                  className="h-px bg-[#b7a9b1]"
+                  className="h-px bg-line"
                 />
 
                 <motion.div
@@ -105,15 +105,15 @@ export default function NuestrasVelas() {
                   whileInView={{ height: 50 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                   viewport={{ once: true }}
-                  className="w-px bg-[#b7a9b1]"
+                  className="w-px bg-line"
                 />
               </div>
 
-              <h2 className="text-lg md:text-xl font-semibold tracking-widest text-[#5a3b4c] mb-4">
+              <h2 className="text-lg md:text-xl font-semibold tracking-widest text-heading mb-4">
                 VELA AMORA DOCE 190G
               </h2>
 
-              <p className="text-gray-600 leading-relaxed text-sm md:text-base">
+              <p className="text-muted leading-relaxed text-sm md:text-base">
                 Ideal para transformar cualquier tarde en un momento especial.
                 Sus notas dulces crean un ambiente cálido y acogedor.
               </p>
@@ -127,8 +127,8 @@ export default function NuestrasVelas() {
               className="flex justify-center relative md:order-2 order-1"
             >
               <Image
-                src="/strawberry.jpg"
-                alt="Vela Amora"
+                src="/berry.jpg"
+                alt="Vela Amora Doce"
                 width={420}
                 height={420}
                 className="object-contain hover:scale-105 transition duration-500"
@@ -150,8 +150,8 @@ export default function NuestrasVelas() {
               className="flex justify-center"
             >
               <Image
-                src="/berry.jpg"
-                alt="Vela Lavanda"
+                src="/lavanda-png.webp"
+                alt="Vela Soft Lavanda"
                 width={420}
                 height={420}
                 className="object-contain hover:scale-105 transition duration-500"
@@ -170,7 +170,7 @@ export default function NuestrasVelas() {
                 whileInView={{ width: 60 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
-                className="md:hidden h-px bg-[#b7a9b1] mx-auto mb-6"
+                className="md:hidden h-px bg-line mx-auto mb-6"
               />
               <div className="hidden md:flex absolute -left-32 top-8 items-start">
                 <motion.div
@@ -178,7 +178,7 @@ export default function NuestrasVelas() {
                   whileInView={{ width: 120 }}
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
-                  className="h-px bg-[#b7a9b1]"
+                  className="h-px bg-line"
                 />
 
                 <motion.div
@@ -186,15 +186,15 @@ export default function NuestrasVelas() {
                   whileInView={{ height: 50 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                   viewport={{ once: true }}
-                  className="w-px bg-[#b7a9b1]"
+                  className="w-px bg-line"
                 />
               </div>
 
-              <h2 className="text-lg md:text-xl font-semibold tracking-widest text-[#5a3b4c] mb-4">
+              <h2 className="text-lg md:text-xl font-semibold tracking-widest text-heading mb-4">
                 VELA SOFT LAVANDA 190G
               </h2>
 
-              <p className="text-gray-600 leading-relaxed text-sm md:text-base">
+              <p className="text-muted leading-relaxed text-sm md:text-base">
                 Perfecta para desconectar al final del día. Su aroma suave de
                 lavanda relaja la mente y crea un ambiente ideal para descansar.
               </p>

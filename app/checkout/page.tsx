@@ -71,7 +71,7 @@ export default function CheckoutPage() {
               <div key={item.id} className="flex justify-between border-b pb-2">
                 <div>
                   <p className="font-medium">{item.name}</p>
-                  <p className="text-sm text-gray-500">x{item.quantity}</p>
+                  <p className="text-sm text-muted">x{item.quantity}</p>
                 </div>
                 <p>${item.price * item.quantity}</p>
               </div>
@@ -122,7 +122,7 @@ export default function CheckoutPage() {
 
           {/* 🏦 TRANSFERENCIA */}
           {paymentMethod === "transferencia" && (
-            <div className="bg-gray-100 p-4 rounded mb-4 text-sm">
+            <div className="bg-secondary p-4 rounded mb-4 text-sm">
               <p className="font-semibold mb-2">Datos para transferir:</p>
               <p>Alias: velas.tienda</p>
               <p>CBU: 000000000000</p>
@@ -134,7 +134,7 @@ export default function CheckoutPage() {
 
           {/* 💵 EFECTIVO */}
           {paymentMethod === "efectivo" && (
-            <div className="bg-gray-100 p-4 rounded mb-4 text-sm">
+            <div className="bg-secondary p-4 rounded mb-4 text-sm">
               <p>Pagás en efectivo al recibir el producto o al retirar.</p>
             </div>
           )}
@@ -143,7 +143,7 @@ export default function CheckoutPage() {
           <button
             onClick={handleCheckout}
             disabled={loading}
-            className="w-full bg-black text-white py-3 rounded mt-4 hover:opacity-90 transition"
+            className="w-full bg-navbar text-white py-3 rounded mt-4 hover:opacity-90 transition"
           >
             {loading ? "Procesando..." : "Confirmar compra"}
           </button>
