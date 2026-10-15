@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { instagramLink, whatsappLink } from "@/config/site";
+import { instagramLink, site, whatsappLink } from "@/config/site";
 
 const Footer = () => {
   return (
@@ -65,8 +65,19 @@ const Footer = () => {
       </div>
 
       {/* línea inferior */}
-      <div className="border-t border-borderMain py-4 text-center text-xs text-textMuted bg-secondary">
-        © {new Date().getFullYear()} Velas — Todos los derechos reservados
+      <div className="border-t border-borderMain py-4 px-6 text-center text-xs text-textMuted bg-secondary space-y-2">
+        <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1">
+          <Link href="/terminos" className="hover:text-accent">Términos y condiciones</Link>
+          <Link href="/privacidad" className="hover:text-accent">Privacidad</Link>
+          <Link href="/cambios-y-devoluciones" className="hover:text-accent">Cambios y devoluciones</Link>
+          <Link href="/arrepentimiento" className="hover:text-accent">Botón de arrepentimiento</Link>
+        </nav>
+        <p>
+          © {new Date().getFullYear()} {site.legal.razonSocial || site.name}
+          {site.legal.cuit && ` — CUIT ${site.legal.cuit}`}
+          {site.legal.address && ` — ${site.legal.address}`} — Todos los
+          derechos reservados
+        </p>
       </div>
     </footer>
   );

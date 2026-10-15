@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/navbar/Navbar";
 import "./globals.css";
 import { Inter, Cormorant_Garamond } from "next/font/google";
@@ -24,6 +25,17 @@ const cormorant = Cormorant_Garamond({
 
 // Aplica el tema guardado antes de pintar para evitar el "flash" claro
 const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.classList.add("dark")}}catch(e){}})()`;
+
+export const metadata: Metadata = {
+  title: {
+    default: "La Comarca de Cera",
+    template: "%s | La Comarca de Cera",
+  },
+  icons: {
+    icon: "/frodito3.png",
+    apple: "/frodito3.png",
+  },
+};
 
 export default function RootLayout({
   children,

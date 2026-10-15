@@ -8,6 +8,20 @@ export const site = {
   email: process.env.NEXT_PUBLIC_EMAIL ?? "",
   hours: "Lunes a sábados de 9 a 18 hs",
   freeShippingFrom: 30000,
+  // Costo de envío fijo (ARS) cuando no se llega al envío gratis. Ajustar.
+  shippingCost: Number(process.env.SHIPPING_COST ?? 4500),
+  // Datos legales/fiscales (se muestran en el footer y en las páginas legales)
+  legal: {
+    razonSocial: process.env.NEXT_PUBLIC_RAZON_SOCIAL ?? "",
+    cuit: process.env.NEXT_PUBLIC_CUIT ?? "",
+    address: process.env.NEXT_PUBLIC_ADDRESS ?? "",
+  },
+  // Datos para transferencias. Completar con los reales.
+  bank: {
+    alias: process.env.NEXT_PUBLIC_BANK_ALIAS ?? "",
+    cbu: process.env.NEXT_PUBLIC_BANK_CBU ?? "",
+    holder: process.env.NEXT_PUBLIC_BANK_HOLDER ?? "",
+  },
 };
 
 export const whatsappLink = (message = "") =>

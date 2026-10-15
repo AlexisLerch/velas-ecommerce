@@ -1,70 +1,17 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useCartStore, CartItem } from "@/store/cartStore";
+import { useCartStore } from "@/store/cartStore";
 import { FaTrash } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { RiShoppingBasketLine } from "react-icons/ri";
 import { GiCandleFlame } from "react-icons/gi";
 
-type CartItemFromDB = {
-  id: string; // 👈 ID único del item (para React)
-  productId: string; // 👈 ID REAL del producto
-  name: string;
-  price: number;
-  quantity: number;
-  image?: string;
-};
-
 export default function CartPage() {
   const cart = useCartStore((state) => state.items);
-  const setItems = useCartStore((state) => state.setItems);
   const removeItem = useCartStore((state) => state.removeItem);
-
-  const userId = "usuario-demo";
-  const hasLoaded = useRef(false);
-
-  // 🔹 Cargar carrito
-  useEffect(() => {
-    if (!userId) return;
-
-    fetch(`/api/cart?userId=${userId}`)
-      .then((res) => res.json())
-      .then((items: CartItemFromDB[]) => {
-        if (!items || items.length === 0) {
-          hasLoaded.current = true;
-          return;
-        }
-
-        const mapped: CartItem[] = items.map((i) => ({
-          id: crypto.randomUUID(), // 👈 único para React
-          productId: i.productId, // 👈 REAL
-          name: i.name,
-          price: i.price,
-          quantity: i.quantity,
-          image: i.image || "/placeholder.png",
-        }));
-
-        setItems(mapped);
-        hasLoaded.current = true;
-      })
-      .catch(console.error);
-  }, [userId, setItems]);
-
-  // 🔹 Guardar carrito
-  useEffect(() => {
-    if (!hasLoaded.current) return;
-
-    fetch(`/api/cart`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId, items: cart }),
-    }).catch(console.error);
-  }, [cart, userId]);
 
   const total = cart.reduce((acc, i) => acc + i.price * i.quantity, 0);
 

@@ -3,7 +3,7 @@ import { FaInstagram, FaWhatsapp, FaRegClock, FaEnvelope } from "react-icons/fa"
 import { instagramLink, site, whatsappLink } from "@/config/site";
 
 export const metadata = {
-  title: "Contacto | La Comarca de Cera",
+  title: "Contacto",
   description: "Escribinos por pedidos, consultas y velas personalizadas.",
 };
 

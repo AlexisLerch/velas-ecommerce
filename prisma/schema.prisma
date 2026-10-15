@@ -27,3 +27,70 @@ model CartItem {
   quantity  Int
   tag       String?
 }
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  MERCADOPAGO
+  TRANSFER
+  CASH
+}
+
+enum DeliveryMethod {
+  SHIPPING
+  PICKUP
+}
+
+model Order {
+  id             String         @id @default(cuid())
+  number         Int            @unique @default(autoincrement())
+  status         OrderStatus    @default(PENDING_PAYMENT)
+  paymentMethod  PaymentMethod
+  deliveryMethod DeliveryMethod
+
+  // Cliente
+  customerName  String
+  customerEmail String
+  customerPhone String
+
+  // Envío (vacío si es retiro)
+  address    String?
+  city       String?
+  province   String?
+  postalCode String?
+  notes      String?
+
+  subtotal     Int
+  shippingCost Int
+  total        Int
+
+  // Mercado Pago
+  mpPreferenceId String?
+  mpPaymentId    String?
+
+  items     OrderItem[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  order     Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  // Id del producto al momento de la compra (sin FK: puede venir del catálogo local)
+  productId String
+  name      String
+  unitPrice Int
+  quantity  Int
+
+  @@index([orderId])
+}
